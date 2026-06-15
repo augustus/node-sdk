@@ -114,7 +114,7 @@ describe('resource checkoutsession', () => {
             accountNumber: '095',
             sortCode: '269125115713',
           },
-          wallet: { address: 'address', blockchain: 'ETH' },
+          wallet: { address: 'address', blockchain: 'BTC' },
         },
       },
       subaccountId: 'subaccountId',

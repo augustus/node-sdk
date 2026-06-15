@@ -27,7 +27,7 @@ export interface DepositRetrieveResponse {
   /**
    * The currency of the deposit
    */
-  currency: 'EUR' | 'GBP' | 'PLN' | 'SEK' | 'DKK' | 'USD' | 'USDC';
+  currency: 'EUR' | 'GBP' | 'PLN' | 'SEK' | 'DKK' | 'USD' | 'USDC' | 'BTC';
 
   /**
    * The payee account identifier
@@ -78,6 +78,8 @@ export interface DepositRetrieveResponse {
     | 'target'
     | 'ach'
     | 'fedwire'
+    | 'BTC'
+    | 'BTC-TESTNET4'
     | 'ETH'
     | 'ETH-SEPOLIA'
     | 'SOL'
@@ -161,7 +163,15 @@ export namespace DepositRetrieveResponse {
       /**
        * The blockchain network
        */
-      blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+      blockchain:
+        | 'BTC'
+        | 'BTC-TESTNET4'
+        | 'ETH'
+        | 'ETH-SEPOLIA'
+        | 'SOL'
+        | 'SOL-DEVNET'
+        | 'MATIC'
+        | 'MATIC-AMOY';
     }
   }
 
@@ -234,7 +244,15 @@ export namespace DepositRetrieveResponse {
       /**
        * The blockchain network
        */
-      blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+      blockchain:
+        | 'BTC'
+        | 'BTC-TESTNET4'
+        | 'ETH'
+        | 'ETH-SEPOLIA'
+        | 'SOL'
+        | 'SOL-DEVNET'
+        | 'MATIC'
+        | 'MATIC-AMOY';
     }
   }
 
@@ -257,7 +275,7 @@ export namespace DepositRetrieveResponse {
     /**
      * The currency of the return
      */
-    currency: 'EUR' | 'GBP' | 'PLN' | 'SEK' | 'DKK' | 'USD' | 'USDC';
+    currency: 'EUR' | 'GBP' | 'PLN' | 'SEK' | 'DKK' | 'USD' | 'USDC' | 'BTC';
 
     /**
      * The ID of the associated deposit
