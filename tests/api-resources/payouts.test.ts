@@ -57,7 +57,7 @@ describe('resource payouts', () => {
             accountNumber: '095',
             sortCode: '269125115713',
           },
-          wallet: { address: 'address', blockchain: 'ETH' },
+          wallet: { address: 'address', blockchain: 'BTC' },
         },
         orderId: 'orderId',
         type: 'beneficiary',
