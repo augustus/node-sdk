@@ -589,6 +589,8 @@ export interface PayoutCreateParams {
     | 'SWIFT'
     | 'INTERNAL'
     | 'TARGET'
+    | 'ACH'
+    | 'FEDWIRE'
     | 'ETH'
     | 'ETH-SEPOLIA'
     | 'SOL'

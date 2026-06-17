@@ -76,6 +76,8 @@ export interface DepositRetrieveResponse {
     | 'swift'
     | 'internal'
     | 'target'
+    | 'ach'
+    | 'fedwire'
     | 'ETH'
     | 'ETH-SEPOLIA'
     | 'SOL'

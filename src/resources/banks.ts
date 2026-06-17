@@ -316,6 +316,8 @@ export interface BankRetrieveResponse {
     | 'SWIFT'
     | 'INTERNAL'
     | 'TARGET'
+    | 'ACH'
+    | 'FEDWIRE'
   >;
 
   /**
@@ -650,6 +652,8 @@ export namespace BankListResponse {
       | 'SWIFT'
       | 'INTERNAL'
       | 'TARGET'
+      | 'ACH'
+      | 'FEDWIRE'
     >;
 
     /**
@@ -985,6 +989,8 @@ export namespace BankSearchResponse {
       | 'SWIFT'
       | 'INTERNAL'
       | 'TARGET'
+      | 'ACH'
+      | 'FEDWIRE'
     >;
 
     /**
