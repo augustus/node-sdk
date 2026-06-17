@@ -40,10 +40,10 @@ Additionally, the `headers` property on `APIError` objects is now an instance of
 
 ### Removed `httpAgent` in favor of `fetchOptions`
 
-The `httpAgent` client option has been removed in favor of a [platform-specific `fetchOptions` property](https://github.com/getivy/node-sdk#fetch-options).
+The `httpAgent` client option has been removed in favor of a [platform-specific `fetchOptions` property](https://github.com/augustus/node-sdk#fetch-options).
 This change was made as `httpAgent` relied on `node:http` agents which are not supported by any runtime's builtin fetch implementation.
 
-If you were using `httpAgent` for proxy support, check out the [new proxy documentation](https://github.com/getivy/node-sdk#configuring-proxies).
+If you were using `httpAgent` for proxy support, check out the [new proxy documentation](https://github.com/augustus/node-sdk#configuring-proxies).
 
 Before:
 
