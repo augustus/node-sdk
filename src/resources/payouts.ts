@@ -159,7 +159,15 @@ export namespace Payout {
       /**
        * The blockchain network
        */
-      blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+      blockchain:
+        | 'BTC'
+        | 'BTC-TESTNET4'
+        | 'ETH'
+        | 'ETH-SEPOLIA'
+        | 'SOL'
+        | 'SOL-DEVNET'
+        | 'MATIC'
+        | 'MATIC-AMOY';
     }
   }
 
@@ -330,7 +338,15 @@ export namespace PayoutRetrieveResponse {
       /**
        * The blockchain network
        */
-      blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+      blockchain:
+        | 'BTC'
+        | 'BTC-TESTNET4'
+        | 'ETH'
+        | 'ETH-SEPOLIA'
+        | 'SOL'
+        | 'SOL-DEVNET'
+        | 'MATIC'
+        | 'MATIC-AMOY';
     }
   }
 
@@ -512,7 +528,15 @@ export namespace PayoutListResponse {
         /**
          * The blockchain network
          */
-        blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+        blockchain:
+          | 'BTC'
+          | 'BTC-TESTNET4'
+          | 'ETH'
+          | 'ETH-SEPOLIA'
+          | 'SOL'
+          | 'SOL-DEVNET'
+          | 'MATIC'
+          | 'MATIC-AMOY';
       }
     }
 
@@ -591,6 +615,8 @@ export interface PayoutCreateParams {
     | 'TARGET'
     | 'ACH'
     | 'FEDWIRE'
+    | 'BTC'
+    | 'BTC-TESTNET4'
     | 'ETH'
     | 'ETH-SEPOLIA'
     | 'SOL'
@@ -679,7 +705,15 @@ export namespace PayoutCreateParams {
         /**
          * The blockchain network
          */
-        blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+        blockchain:
+          | 'BTC'
+          | 'BTC-TESTNET4'
+          | 'ETH'
+          | 'ETH-SEPOLIA'
+          | 'SOL'
+          | 'SOL-DEVNET'
+          | 'MATIC'
+          | 'MATIC-AMOY';
       }
     }
   }

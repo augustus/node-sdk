@@ -607,7 +607,15 @@ export namespace OrderCreateResponse {
         /**
          * The blockchain network
          */
-        blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+        blockchain:
+          | 'BTC'
+          | 'BTC-TESTNET4'
+          | 'ETH'
+          | 'ETH-SEPOLIA'
+          | 'SOL'
+          | 'SOL-DEVNET'
+          | 'MATIC'
+          | 'MATIC-AMOY';
       }
     }
   }
@@ -738,7 +746,15 @@ export namespace OrderCreateResponse {
       /**
        * The blockchain network
        */
-      blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+      blockchain:
+        | 'BTC'
+        | 'BTC-TESTNET4'
+        | 'ETH'
+        | 'ETH-SEPOLIA'
+        | 'SOL'
+        | 'SOL-DEVNET'
+        | 'MATIC'
+        | 'MATIC-AMOY';
     }
   }
 
@@ -812,7 +828,15 @@ export namespace OrderCreateResponse {
       /**
        * The blockchain network
        */
-      blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+      blockchain:
+        | 'BTC'
+        | 'BTC-TESTNET4'
+        | 'ETH'
+        | 'ETH-SEPOLIA'
+        | 'SOL'
+        | 'SOL-DEVNET'
+        | 'MATIC'
+        | 'MATIC-AMOY';
     }
   }
 
@@ -1202,6 +1226,7 @@ export namespace OrderCreateResponse {
       | 'PENDING_PAYMENT_ATTEMPTS_FOUND'
       | 'AML_FREEZE'
       | 'AML_APPROVE'
+      | 'AML_REJECT'
       | 'MANUAL_FREEZE'
       | 'MANUAL_UNFREEZE'
       | 'ORDER_MANUALLY_REOPENED'
@@ -1802,7 +1827,15 @@ export namespace OrderRetrieveResponse {
         /**
          * The blockchain network
          */
-        blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+        blockchain:
+          | 'BTC'
+          | 'BTC-TESTNET4'
+          | 'ETH'
+          | 'ETH-SEPOLIA'
+          | 'SOL'
+          | 'SOL-DEVNET'
+          | 'MATIC'
+          | 'MATIC-AMOY';
       }
     }
   }
@@ -1933,7 +1966,15 @@ export namespace OrderRetrieveResponse {
       /**
        * The blockchain network
        */
-      blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+      blockchain:
+        | 'BTC'
+        | 'BTC-TESTNET4'
+        | 'ETH'
+        | 'ETH-SEPOLIA'
+        | 'SOL'
+        | 'SOL-DEVNET'
+        | 'MATIC'
+        | 'MATIC-AMOY';
     }
   }
 
@@ -2007,7 +2048,15 @@ export namespace OrderRetrieveResponse {
       /**
        * The blockchain network
        */
-      blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+      blockchain:
+        | 'BTC'
+        | 'BTC-TESTNET4'
+        | 'ETH'
+        | 'ETH-SEPOLIA'
+        | 'SOL'
+        | 'SOL-DEVNET'
+        | 'MATIC'
+        | 'MATIC-AMOY';
     }
   }
 
@@ -2397,6 +2446,7 @@ export namespace OrderRetrieveResponse {
       | 'PENDING_PAYMENT_ATTEMPTS_FOUND'
       | 'AML_FREEZE'
       | 'AML_APPROVE'
+      | 'AML_REJECT'
       | 'MANUAL_FREEZE'
       | 'MANUAL_UNFREEZE'
       | 'ORDER_MANUALLY_REOPENED'
@@ -2997,7 +3047,15 @@ export namespace OrderExpireResponse {
         /**
          * The blockchain network
          */
-        blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+        blockchain:
+          | 'BTC'
+          | 'BTC-TESTNET4'
+          | 'ETH'
+          | 'ETH-SEPOLIA'
+          | 'SOL'
+          | 'SOL-DEVNET'
+          | 'MATIC'
+          | 'MATIC-AMOY';
       }
     }
   }
@@ -3128,7 +3186,15 @@ export namespace OrderExpireResponse {
       /**
        * The blockchain network
        */
-      blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+      blockchain:
+        | 'BTC'
+        | 'BTC-TESTNET4'
+        | 'ETH'
+        | 'ETH-SEPOLIA'
+        | 'SOL'
+        | 'SOL-DEVNET'
+        | 'MATIC'
+        | 'MATIC-AMOY';
     }
   }
 
@@ -3202,7 +3268,15 @@ export namespace OrderExpireResponse {
       /**
        * The blockchain network
        */
-      blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+      blockchain:
+        | 'BTC'
+        | 'BTC-TESTNET4'
+        | 'ETH'
+        | 'ETH-SEPOLIA'
+        | 'SOL'
+        | 'SOL-DEVNET'
+        | 'MATIC'
+        | 'MATIC-AMOY';
     }
   }
 
@@ -3592,6 +3666,7 @@ export namespace OrderExpireResponse {
       | 'PENDING_PAYMENT_ATTEMPTS_FOUND'
       | 'AML_FREEZE'
       | 'AML_APPROVE'
+      | 'AML_REJECT'
       | 'MANUAL_FREEZE'
       | 'MANUAL_UNFREEZE'
       | 'ORDER_MANUALLY_REOPENED'

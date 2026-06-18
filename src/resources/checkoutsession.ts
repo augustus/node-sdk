@@ -5576,7 +5576,15 @@ export namespace CheckoutsessionCreateParams {
         /**
          * The blockchain network
          */
-        blockchain: 'ETH' | 'ETH-SEPOLIA' | 'SOL' | 'SOL-DEVNET' | 'MATIC' | 'MATIC-AMOY';
+        blockchain:
+          | 'BTC'
+          | 'BTC-TESTNET4'
+          | 'ETH'
+          | 'ETH-SEPOLIA'
+          | 'SOL'
+          | 'SOL-DEVNET'
+          | 'MATIC'
+          | 'MATIC-AMOY';
       }
     }
   }

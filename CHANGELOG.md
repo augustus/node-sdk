@@ -1,17 +1,17 @@
 # Changelog
 
-## 2.8.0 (2026-05-28)
+## 2.8.0 (2026-06-18)
 
-Full Changelog: [v2.7.0...v2.8.0](https://github.com/getivy/node-sdk/compare/v2.7.0...v2.8.0)
+Full Changelog: [v2.7.0...v2.8.0](https://github.com/augustus/node-sdk/compare/v2.7.0...v2.8.0)
 
 ### Features
 
-* **api:** api update ([e993b52](https://github.com/getivy/node-sdk/commit/e993b529daedc2d96974503db5cee8b262168d76))
+* **api:** api update ([abc0268](https://github.com/augustus/node-sdk/commit/abc0268c8c0ec5cf6001538650060f548039aa94))
 
 
 ### Chores
 
-* **internal:** codegen related update ([f5ee5c8](https://github.com/getivy/node-sdk/commit/f5ee5c893d4cb0784eb6fb85fb8c0478e1aae1e5))
+* sync repo ([aa6f407](https://github.com/augustus/node-sdk/commit/aa6f4073a03320b404ce9012cc8e5acc403848bf))
 
 ## 2.7.0 (2026-05-19)
 
