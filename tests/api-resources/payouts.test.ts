@@ -30,6 +30,14 @@ describe('resource payouts', () => {
       amount: 1.01,
       currency: 'EUR',
       destination: {
+        address: {
+          city: 'x',
+          countryCode: 'AF',
+          line1: 'x',
+          line2: 'x',
+          postalCode: 'x',
+          state: 'x',
+        },
         financialAddress: {
           type: 'iban',
           aba: {
