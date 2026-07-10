@@ -39,7 +39,7 @@ export interface ReturnCreateResponse {
   /**
    * The currency of the return
    */
-  currency: 'EUR' | 'GBP' | 'PLN' | 'SEK' | 'DKK' | 'USD' | 'USDC' | 'BTC';
+  currency: 'EUR' | 'GBP' | 'PLN' | 'SEK' | 'DKK' | 'USD' | 'USDC' | 'BTC' | 'ETH' | 'SOL' | 'POL';
 
   /**
    * The ID of the associated deposit
@@ -86,7 +86,7 @@ export interface ReturnRetrieveResponse {
   /**
    * The currency of the return
    */
-  currency: 'EUR' | 'GBP' | 'PLN' | 'SEK' | 'DKK' | 'USD' | 'USDC' | 'BTC';
+  currency: 'EUR' | 'GBP' | 'PLN' | 'SEK' | 'DKK' | 'USD' | 'USDC' | 'BTC' | 'ETH' | 'SOL' | 'POL';
 
   /**
    * The ID of the associated deposit
