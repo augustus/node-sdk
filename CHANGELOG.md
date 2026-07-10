@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.11.0 (2026-07-10)
+
+Full Changelog: [v2.10.0...v2.11.0](https://github.com/augustus/node-sdk/compare/v2.10.0...v2.11.0)
+
+### Features
+
+* **api:** api update ([451f250](https://github.com/augustus/node-sdk/commit/451f250d2c684cf1aadc1f86aa1ea29b416f264a))
+
 ## 2.10.0 (2026-07-10)
 
 Full Changelog: [v2.9.0...v2.10.0](https://github.com/augustus/node-sdk/compare/v2.9.0...v2.10.0)
