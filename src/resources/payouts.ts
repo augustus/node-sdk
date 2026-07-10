@@ -627,6 +627,9 @@ export interface PayoutCreateParams {
 
 export namespace PayoutCreateParams {
   export interface Destination {
+    /**
+     * Physical postal address of the payout counterparty.
+     */
     address?: Destination.Address;
 
     financialAddress?: Destination.FinancialAddress | null;
@@ -641,9 +644,18 @@ export namespace PayoutCreateParams {
   }
 
   export namespace Destination {
+    /**
+     * Physical postal address of the payout counterparty.
+     */
     export interface Address {
+      /**
+       * City or locality.
+       */
       city: string;
 
+      /**
+       * ISO 3166-1 alpha-2 country code.
+       */
       countryCode:
         | 'AF'
         | 'AL'
@@ -896,12 +908,24 @@ export namespace PayoutCreateParams {
         | 'SS'
         | 'XK';
 
+      /**
+       * Primary street address line.
+       */
       line1: string;
 
+      /**
+       * Secondary street address line.
+       */
       line2?: string;
 
+      /**
+       * Postal or ZIP code.
+       */
       postalCode?: string;
 
+      /**
+       * State, province, or region.
+       */
       state?: string;
     }
 
