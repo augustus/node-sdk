@@ -27,7 +27,7 @@ export interface DepositRetrieveResponse {
   /**
    * The currency of the deposit
    */
-  currency: 'EUR' | 'GBP' | 'PLN' | 'SEK' | 'DKK' | 'USD' | 'USDC' | 'BTC';
+  currency: 'EUR' | 'GBP' | 'PLN' | 'SEK' | 'DKK' | 'USD' | 'USDC' | 'BTC' | 'ETH' | 'SOL' | 'POL';
 
   /**
    * The payee account identifier
@@ -275,7 +275,7 @@ export namespace DepositRetrieveResponse {
     /**
      * The currency of the return
      */
-    currency: 'EUR' | 'GBP' | 'PLN' | 'SEK' | 'DKK' | 'USD' | 'USDC' | 'BTC';
+    currency: 'EUR' | 'GBP' | 'PLN' | 'SEK' | 'DKK' | 'USD' | 'USDC' | 'BTC' | 'ETH' | 'SOL' | 'POL';
 
     /**
      * The ID of the associated deposit
