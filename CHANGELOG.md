@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.12.0 (2026-07-18)
+
+Full Changelog: [v2.11.0...v2.12.0](https://github.com/augustus/node-sdk/compare/v2.11.0...v2.12.0)
+
+### Features
+
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([2f1ee7c](https://github.com/augustus/node-sdk/commit/2f1ee7c02fafb84f42e2dcd478c44b1c4e8b17c1))
+
+
+### Bug Fixes
+
+* **ci:** bump @arethetypeswrong/cli to ^0.18.0 and run CI workflows on Node 24 ([3f92c15](https://github.com/augustus/node-sdk/commit/3f92c15f96f2c2274fc0ebef7bcf593379acacc2))
+
 ## 2.11.0 (2026-07-10)
 
 Full Changelog: [v2.10.0...v2.11.0](https://github.com/augustus/node-sdk/compare/v2.10.0...v2.11.0)
