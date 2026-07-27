@@ -911,7 +911,7 @@ export namespace PayoutCreateParams {
       /**
        * Primary street address line.
        */
-      line1: string;
+      line1?: string;
 
       /**
        * Secondary street address line.
