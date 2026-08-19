@@ -80,20 +80,6 @@ Methods:
 - <code title="post /api/service/return/create">client.returns.<a href="./src/resources/returns.ts">create</a>({ ...params }) -> ReturnCreateResponse</code>
 - <code title="post /api/service/return/retrieve">client.returns.<a href="./src/resources/returns.ts">retrieve</a>({ ...params }) -> ReturnRetrieveResponse</code>
 
-# Fx
-
-Types:
-
-- <code><a href="./src/resources/fx.ts">FxRetrieveResponse</a></code>
-- <code><a href="./src/resources/fx.ts">FxExecuteResponse</a></code>
-- <code><a href="./src/resources/fx.ts">FxRetrieveRateResponse</a></code>
-
-Methods:
-
-- <code title="post /api/service/fx/retrieve">client.fx.<a href="./src/resources/fx.ts">retrieve</a>({ ...params }) -> FxRetrieveResponse</code>
-- <code title="post /api/service/fx/execute">client.fx.<a href="./src/resources/fx.ts">execute</a>({ ...params }) -> FxExecuteResponse</code>
-- <code title="post /api/service/fx/retrieve-rate">client.fx.<a href="./src/resources/fx.ts">retrieveRate</a>({ ...params }) -> FxRetrieveRateResponse</code>
-
 # BeneficiaryPayouts
 
 Types:
