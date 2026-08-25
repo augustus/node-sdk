@@ -328,7 +328,7 @@ export interface BankRetrieveResponse {
   /**
    * The capabilities of the bank.
    */
-  capabilities?: Array<'ais' | 'pis'>;
+  capabilities?: Array<'pis'>;
 
   group?: string;
 
@@ -664,7 +664,7 @@ export namespace BankListResponse {
     /**
      * The capabilities of the bank.
      */
-    capabilities?: Array<'ais' | 'pis'>;
+    capabilities?: Array<'pis'>;
 
     group?: string;
 
@@ -1001,7 +1001,7 @@ export namespace BankSearchResponse {
     /**
      * The capabilities of the bank.
      */
-    capabilities?: Array<'ais' | 'pis'>;
+    capabilities?: Array<'pis'>;
 
     group?: string;
 
@@ -1026,10 +1026,9 @@ export interface BankRetrieveParams {
 
 export interface BankListParams {
   /**
-   * Filter banks with provided capability only. `ais` for data products, `pis` for
-   * payment products.
+   * Filter banks with the provided payment capability.
    */
-  capability?: 'ais' | 'pis';
+  capability?: 'pis';
 
   /**
    * ISO 4217 currency code. Filter banks with provided currency only.
@@ -1315,10 +1314,9 @@ export interface BankListParams {
 
 export interface BankSearchParams {
   /**
-   * Filter banks with provided capability only. `ais` for data products, `pis` for
-   * payment products.
+   * Filter banks with the provided payment capability.
    */
-  capability?: 'ais' | 'pis';
+  capability?: 'pis';
 
   /**
    * ISO 4217 currency code. Filter banks with provided currency only.
