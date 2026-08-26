@@ -1,6 +1,6 @@
 # Migration guide
 
-This guide outlines the changes and steps needed to migrate your codebase to the latest version of the Ivy TypeScript SDK.
+This guide outlines the changes and steps needed to migrate your codebase to the latest version of the Augustus TypeScript SDK.
 
 The main changes are that the SDK now relies on the [builtin Web fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) instead of `node-fetch` and has zero dependencies.
 
@@ -48,12 +48,12 @@ If you were using `httpAgent` for proxy support, check out the [new proxy docume
 Before:
 
 ```ts
-import Ivy from '@getivy/node-sdk';
+import Augustus from '@getivy/node-sdk';
 import http from 'http';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const client = new Ivy({
+const client = new Augustus({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
 });
 ```
@@ -61,11 +61,11 @@ const client = new Ivy({
 After:
 
 ```ts
-import Ivy from '@getivy/node-sdk';
+import Augustus from '@getivy/node-sdk';
 import * as undici from 'undici';
 
 const proxyAgent = new undici.ProxyAgent(process.env.PROXY_URL);
-const client = new Ivy({
+const client = new Augustus({
   fetchOptions: {
     dispatcher: proxyAgent,
   },
@@ -106,8 +106,8 @@ Now you must always either reference them as static class properties or import t
 const { Banks } = require('@getivy/node-sdk');
 
 // After
-const { Ivy } = require('@getivy/node-sdk');
-Ivy.Banks; // or import directly from @getivy/node-sdk/resources/banks
+const { Augustus } = require('@getivy/node-sdk');
+Augustus.Banks; // or import directly from @getivy/node-sdk/resources/banks
 ```
 
 #### Cleaned up `uploads` exports
@@ -144,7 +144,7 @@ The `APIClient` base client class has been removed as it is no longer needed. If
 import { APIClient } from '@getivy/node-sdk/core';
 
 // After
-import { Ivy } from '@getivy/node-sdk';
+import { Augustus } from '@getivy/node-sdk';
 ```
 
 ### File handling
@@ -153,7 +153,7 @@ The deprecated `fileFromPath` helper has been removed in favor of native Node.js
 
 ```ts
 // Before
-Ivy.fileFromPath('path/to/file');
+Augustus.fileFromPath('path/to/file');
 
 // After
 import fs from 'fs';
@@ -169,7 +169,7 @@ Previously you could configure the types that the SDK used like this:
 ```ts
 // Tell TypeScript and the package to use the global Web fetch instead of node-fetch.
 import '@getivy/node-sdk/shims/web';
-import Ivy from '@getivy/node-sdk';
+import Augustus from '@getivy/node-sdk';
 ```
 
 The `@getivy/node-sdk/shims` imports have been removed. Your global types must now be [correctly configured](#minimum-types-requirements).
@@ -183,10 +183,10 @@ If you have any `@getivy/node-sdk/src/*` imports, you will need to replace them 
 
 ```ts
 // Before
-import Ivy from '@getivy/node-sdk/src';
+import Augustus from '@getivy/node-sdk/src';
 
 // After
-import Ivy from '@getivy/node-sdk';
+import Augustus from '@getivy/node-sdk';
 ```
 
 ## TypeScript troubleshooting

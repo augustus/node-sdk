@@ -1,12 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Ivy as default } from './client';
+export { Augustus as default } from './client';
 
 export { type Uploadable, toFile } from './core/uploads';
 export { APIPromise } from './core/api-promise';
-export { Ivy, type ClientOptions } from './client';
+export { Augustus, type ClientOptions } from './client';
 export {
-  IvyError,
+  AugustusError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,

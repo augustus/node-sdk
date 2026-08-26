@@ -53,15 +53,6 @@ import {
 } from './resources/customers';
 import { DepositRetrieveParams, DepositRetrieveResponse, Deposits } from './resources/deposits';
 import {
-  Fx,
-  FxExecuteParams,
-  FxExecuteResponse,
-  FxRetrieveParams,
-  FxRetrieveRateParams,
-  FxRetrieveRateResponse,
-  FxRetrieveResponse,
-} from './resources/fx';
-import {
   OrderCreateParams,
   OrderCreateResponse,
   OrderExpireParams,
@@ -140,7 +131,7 @@ export interface ClientOptions {
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
-   * Defaults to process.env['IVY_BASE_URL'].
+   * Defaults to process.env['AUGUSTUS_BASE_URL'].
    */
   baseURL?: string | null | undefined;
 
@@ -194,7 +185,7 @@ export interface ClientOptions {
   /**
    * Set the log level.
    *
-   * Defaults to process.env['IVY_LOG'] or 'warn' if it isn't set.
+   * Defaults to process.env['AUGUSTUS_LOG'] or 'warn' if it isn't set.
    */
   logLevel?: LogLevel | undefined;
 
@@ -207,9 +198,9 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Ivy API.
+ * API Client for interfacing with the Augustus API.
  */
-export class Ivy {
+export class Augustus {
   apiKey: string;
 
   baseURL: string;
@@ -225,11 +216,11 @@ export class Ivy {
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the Ivy API.
+   * API Client for interfacing with the Augustus API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['IVY_API_KEY'] ?? undefined]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env['IVY_BASE_URL'] ?? https://api.getivy.de] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['AUGUSTUS_BASE_URL'] ?? https://api.getivy.de] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -238,13 +229,13 @@ export class Ivy {
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
-    baseURL = readEnv('IVY_BASE_URL'),
+    baseURL = readEnv('AUGUSTUS_BASE_URL'),
     apiKey = readEnv('IVY_API_KEY'),
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
-      throw new Errors.IvyError(
-        "The IVY_API_KEY environment variable is missing or empty; either provide it, or instantiate the Ivy client with an apiKey option, like new Ivy({ apiKey: 'My API Key' }).",
+      throw new Errors.AugustusError(
+        "The IVY_API_KEY environment variable is missing or empty; either provide it, or instantiate the Augustus client with an apiKey option, like new Augustus({ apiKey: 'My API Key' }).",
       );
     }
 
@@ -256,27 +247,27 @@ export class Ivy {
     };
 
     if (baseURL && opts.environment) {
-      throw new Errors.IvyError(
-        'Ambiguous URL; The `baseURL` option (or IVY_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
+      throw new Errors.AugustusError(
+        'Ambiguous URL; The `baseURL` option (or AUGUSTUS_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
       );
     }
 
     this.baseURL = options.baseURL || environments[options.environment || 'production'];
-    this.timeout = options.timeout ?? Ivy.DEFAULT_TIMEOUT /* 1 minute */;
+    this.timeout = options.timeout ?? Augustus.DEFAULT_TIMEOUT /* 1 minute */;
     this.logger = options.logger ?? console;
     const defaultLogLevel = 'warn';
     // Set default logLevel early so that we can log a warning in parseLogLevel.
     this.logLevel = defaultLogLevel;
     this.logLevel =
       parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ??
-      parseLogLevel(readEnv('IVY_LOG'), "process.env['IVY_LOG']", this) ??
+      parseLogLevel(readEnv('AUGUSTUS_LOG'), "process.env['AUGUSTUS_LOG']", this) ??
       defaultLogLevel;
     this.fetchOptions = options.fetchOptions;
     this.maxRetries = options.maxRetries ?? 2;
     this.fetch = options.fetch ?? Shims.getDefaultFetch();
     this.#encoder = Opts.FallbackEncoder;
 
-    const customHeadersEnv = readEnv('IVY_CUSTOM_HEADERS');
+    const customHeadersEnv = readEnv('AUGUSTUS_CUSTOM_HEADERS');
     if (customHeadersEnv) {
       const parsed: Record<string, string> = {};
       for (const line of customHeadersEnv.split('\n')) {
@@ -829,10 +820,10 @@ export class Ivy {
     }
   }
 
-  static Ivy = this;
+  static Augustus = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
-  static IvyError = Errors.IvyError;
+  static AugustusError = Errors.AugustusError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -854,7 +845,6 @@ export class Ivy {
   orders: API.Orders = new API.Orders(this);
   deposits: API.Deposits = new API.Deposits(this);
   returns: API.Returns = new API.Returns(this);
-  fx: API.Fx = new API.Fx(this);
   beneficiaryPayouts: API.BeneficiaryPayouts = new API.BeneficiaryPayouts(this);
   transactions: API.Transactions = new API.Transactions(this);
   capabilities: API.Capabilities = new API.Capabilities(this);
@@ -866,24 +856,23 @@ export class Ivy {
   payee: API.Payee = new API.Payee(this);
 }
 
-Ivy.Banks = Banks;
-Ivy.Checkoutsession = Checkoutsession;
-Ivy.Customers = Customers;
-Ivy.Orders = Orders;
-Ivy.Deposits = Deposits;
-Ivy.Returns = Returns;
-Ivy.Fx = Fx;
-Ivy.BeneficiaryPayouts = BeneficiaryPayouts;
-Ivy.Transactions = Transactions;
-Ivy.Capabilities = Capabilities;
-Ivy.Refunds = Refunds;
-Ivy.Payouts = Payouts;
-Ivy.Subaccounts = Subaccounts;
-Ivy.Balance = Balance;
-Ivy.Webhook = Webhook;
-Ivy.Payee = Payee;
+Augustus.Banks = Banks;
+Augustus.Checkoutsession = Checkoutsession;
+Augustus.Customers = Customers;
+Augustus.Orders = Orders;
+Augustus.Deposits = Deposits;
+Augustus.Returns = Returns;
+Augustus.BeneficiaryPayouts = BeneficiaryPayouts;
+Augustus.Transactions = Transactions;
+Augustus.Capabilities = Capabilities;
+Augustus.Refunds = Refunds;
+Augustus.Payouts = Payouts;
+Augustus.Subaccounts = Subaccounts;
+Augustus.Balance = Balance;
+Augustus.Webhook = Webhook;
+Augustus.Payee = Payee;
 
-export declare namespace Ivy {
+export declare namespace Augustus {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
@@ -942,16 +931,6 @@ export declare namespace Ivy {
     type ReturnRetrieveResponse as ReturnRetrieveResponse,
     type ReturnCreateParams as ReturnCreateParams,
     type ReturnRetrieveParams as ReturnRetrieveParams,
-  };
-
-  export {
-    Fx as Fx,
-    type FxRetrieveResponse as FxRetrieveResponse,
-    type FxExecuteResponse as FxExecuteResponse,
-    type FxRetrieveRateResponse as FxRetrieveRateResponse,
-    type FxRetrieveParams as FxRetrieveParams,
-    type FxExecuteParams as FxExecuteParams,
-    type FxRetrieveRateParams as FxRetrieveRateParams,
   };
 
   export {

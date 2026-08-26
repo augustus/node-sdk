@@ -15,7 +15,7 @@ export class Capabilities extends APIResource {
 }
 
 export interface CapabilityRetrieveResponse {
-  capabilities?: Array<'ais' | 'pis'>;
+  capabilities?: Array<'pis'>;
 }
 
 export interface CapabilityRetrieveParams {

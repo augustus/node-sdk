@@ -1,6 +1,6 @@
 {
   "pkg": "@getivy/node-sdk",
   "githubRepo": "https://github.com/augustus/node-sdk",
-  "clientClass": "Ivy",
+  "clientClass": "Augustus",
   "methods": []
 }
