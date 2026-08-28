@@ -3,7 +3,8 @@ name: Promote SDKs
 # Promote staging to production by fast-forwarding production main up to staging,
 # preserving SHAs so the trunks stay identical and linear (nothing to heal on the
 # next stlc build). Manual dispatch by design: a maintainer promotes the accumulated
-# batch to cut a release; release-please then opens its version PR on production.
+# batch to cut a release, and the final step runs release-please against production
+# so the version PR is opened by the same run that promoted the batch.
 on:
   workflow_dispatch: {}
 
@@ -35,6 +36,8 @@ jobs:
           private-key: ${{ secrets.IVY_RELEASE_BOT_APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
           permission-contents: write
+          # release-please opens its version PR on production with this same token.
+          permission-pull-requests: write
 
       - name: Fetch production main
         env:
@@ -68,6 +71,13 @@ jobs:
           fi
           git push production origin/main:refs/heads/main
           echo "Fast-forwarded production/main to staging/main."
+
+      - name: Release production and open its version PR
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ steps.app_token.outputs.token }}
+          repo-url: ${{ env.PRODUCTION_REPO }}
+          target-branch: main
 
       - name: Send failure notification to Slack
         if: failure()
