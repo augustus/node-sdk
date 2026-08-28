@@ -618,6 +618,8 @@ export interface PayoutCreateParams {
     | 'TARGET'
     | 'ACH'
     | 'FEDWIRE'
+    | 'FEDNOW'
+    | 'RTP'
     | 'BTC'
     | 'BTC-TESTNET4'
     | 'ETH'

@@ -78,6 +78,8 @@ export interface DepositRetrieveResponse {
     | 'target'
     | 'ach'
     | 'fedwire'
+    | 'fednow'
+    | 'rtp'
     | 'BTC'
     | 'BTC-TESTNET4'
     | 'ETH'

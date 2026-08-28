@@ -318,6 +318,8 @@ export interface BankRetrieveResponse {
     | 'TARGET'
     | 'ACH'
     | 'FEDWIRE'
+    | 'FEDNOW'
+    | 'RTP'
   >;
 
   /**
@@ -654,6 +656,8 @@ export namespace BankListResponse {
       | 'TARGET'
       | 'ACH'
       | 'FEDWIRE'
+      | 'FEDNOW'
+      | 'RTP'
     >;
 
     /**
@@ -991,6 +995,8 @@ export namespace BankSearchResponse {
       | 'TARGET'
       | 'ACH'
       | 'FEDWIRE'
+      | 'FEDNOW'
+      | 'RTP'
     >;
 
     /**
