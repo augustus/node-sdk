@@ -53,15 +53,6 @@ import {
 } from './resources/customers';
 import { DepositRetrieveParams, DepositRetrieveResponse, Deposits } from './resources/deposits';
 import {
-  Fx,
-  FxExecuteParams,
-  FxExecuteResponse,
-  FxRetrieveParams,
-  FxRetrieveRateParams,
-  FxRetrieveRateResponse,
-  FxRetrieveResponse,
-} from './resources/fx';
-import {
   OrderCreateParams,
   OrderCreateResponse,
   OrderExpireParams,
@@ -854,7 +845,6 @@ export class Ivy {
   orders: API.Orders = new API.Orders(this);
   deposits: API.Deposits = new API.Deposits(this);
   returns: API.Returns = new API.Returns(this);
-  fx: API.Fx = new API.Fx(this);
   beneficiaryPayouts: API.BeneficiaryPayouts = new API.BeneficiaryPayouts(this);
   transactions: API.Transactions = new API.Transactions(this);
   capabilities: API.Capabilities = new API.Capabilities(this);
@@ -872,7 +862,6 @@ Ivy.Customers = Customers;
 Ivy.Orders = Orders;
 Ivy.Deposits = Deposits;
 Ivy.Returns = Returns;
-Ivy.Fx = Fx;
 Ivy.BeneficiaryPayouts = BeneficiaryPayouts;
 Ivy.Transactions = Transactions;
 Ivy.Capabilities = Capabilities;
@@ -942,16 +931,6 @@ export declare namespace Ivy {
     type ReturnRetrieveResponse as ReturnRetrieveResponse,
     type ReturnCreateParams as ReturnCreateParams,
     type ReturnRetrieveParams as ReturnRetrieveParams,
-  };
-
-  export {
-    Fx as Fx,
-    type FxRetrieveResponse as FxRetrieveResponse,
-    type FxExecuteResponse as FxExecuteResponse,
-    type FxRetrieveRateResponse as FxRetrieveRateResponse,
-    type FxRetrieveParams as FxRetrieveParams,
-    type FxExecuteParams as FxExecuteParams,
-    type FxRetrieveRateParams as FxRetrieveRateParams,
   };
 
   export {

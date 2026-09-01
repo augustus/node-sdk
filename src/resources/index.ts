@@ -36,15 +36,6 @@ export {
 } from './customers';
 export { Deposits, type DepositRetrieveResponse, type DepositRetrieveParams } from './deposits';
 export {
-  Fx,
-  type FxRetrieveResponse,
-  type FxExecuteResponse,
-  type FxRetrieveRateResponse,
-  type FxRetrieveParams,
-  type FxExecuteParams,
-  type FxRetrieveRateParams,
-} from './fx';
-export {
   Orders,
   type OrderCreateResponse,
   type OrderRetrieveResponse,
