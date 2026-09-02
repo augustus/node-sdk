@@ -70,6 +70,7 @@ jobs:
           client-id: ${{ vars.IVY_RELEASE_BOT_CLIENT_ID }}
           private-key: ${{ secrets.IVY_RELEASE_BOT_APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
+          repositories: ${{ github.repository }}
           permission-contents: write
 
       - name: Push production/main onto staging main
