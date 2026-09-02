@@ -1,0 +1,90 @@
+name: Sync SDK repos
+
+# Back-sync production into staging, so a release (or any commit landed
+# directly on production) doesn't leave the trunks forked. Production is
+# public, so it's fetched with no credential; only the push into this repo's
+# own main needs the App token, to satisfy the branch ruleset. No token or
+# workflow is added to the production repo — this file lives in staging only.
+on:
+  schedule:
+    # Cheap pure-git check twice hourly; a no-op when staging already has
+    # production's content.
+    - cron: '7,37 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  back-sync:
+    # Runner comes from the STLC_RUNNER repo/org variable when set; defaults to GitHub-hosted.
+    runs-on: ${{ vars.STLC_RUNNER || 'ubuntu-latest' }}
+    if: github.repository == 'augustus/node-sdk-staging'
+    concurrency:
+      group: stlc-back-sync
+      cancel-in-progress: true
+    env:
+      PRODUCTION_REPO: augustus/node-sdk
+    steps:
+      - name: Check out staging
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Fetch production main
+        run: |
+          # Production is public — no credential needed to read it.
+          git remote add production "https://github.com/${PRODUCTION_REPO}.git"
+          git fetch production main
+
+      - name: Check whether staging already has production's content
+        id: diff
+        run: |
+          # Content compare, not SHA compare: production carries release-please
+          # commits staging lacks even when there's nothing left to pull back.
+          MERGED=$(git merge-tree --write-tree origin/main production/main) || MERGED=conflict
+          STAGING_TREE=$(git rev-parse 'origin/main^{tree}')
+          if [ "$MERGED" = "$STAGING_TREE" ]; then
+            echo "Staging already has production's content. Nothing to pull back."
+            echo "behind=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "behind=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify staging is an ancestor of production
+        if: steps.diff.outputs.behind == 'true'
+        run: |
+          # Refuse unless staging is an ancestor of production: otherwise the
+          # trunks have forked and a fast-forward would be unsafe.
+          if ! git merge-base --is-ancestor origin/main production/main; then
+            echo "::error title=Back-sync blocked::staging main is not an ancestor of production/main. The trunks have forked and need a manual heal before this can fast-forward again."
+            exit 1
+          fi
+
+      - name: Generate GitHub App token
+        if: steps.diff.outputs.behind == 'true'
+        id: app_token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.IVY_RELEASE_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.IVY_RELEASE_BOT_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          permission-contents: write
+
+      - name: Push production/main onto staging main
+        if: steps.diff.outputs.behind == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app_token.outputs.token }}
+        run: |
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" \
+            production/main:refs/heads/main
+          echo "Fast-forwarded staging main to production/main."
+
+      - name: Send failure notification to Slack
+        if: failure()
+        uses: augustus/actions/.github/actions/slack-job-status@v1
+        with:
+          job_name: 'stlc back-sync'
+          status: failure
+          channel_id: 'C0BSAEGQWHH'
