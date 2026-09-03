@@ -23,14 +23,14 @@ jobs:
       PRODUCTION_REPO: augustus/node-sdk
     steps:
       - name: Check out staging
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           fetch-depth: 0
           persist-credentials: false
 
       - name: Generate GitHub App token
         id: app_token
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
           client-id: ${{ vars.IVY_RELEASE_BOT_CLIENT_ID }}
           private-key: ${{ secrets.IVY_RELEASE_BOT_APP_PRIVATE_KEY }}
@@ -73,7 +73,7 @@ jobs:
           echo "Fast-forwarded production/main to staging/main."
 
       - name: Release production and open its version PR
-        uses: googleapis/release-please-action@v4
+        uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4.4.1
         with:
           token: ${{ steps.app_token.outputs.token }}
           repo-url: ${{ env.PRODUCTION_REPO }}
@@ -81,7 +81,7 @@ jobs:
 
       - name: Send failure notification to Slack
         if: failure()
-        uses: augustus/actions/.github/actions/slack-job-status@v1
+        uses: augustus/actions/.github/actions/slack-job-status@e2e323107d7db47f8112eeed5853ecab8cab3e87 # v1.34.4
         with:
           job_name: 'stlc promote'
           status: failure
