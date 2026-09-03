@@ -35,6 +35,7 @@ jobs:
           client-id: ${{ vars.IVY_RELEASE_BOT_CLIENT_ID }}
           private-key: ${{ secrets.IVY_RELEASE_BOT_APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
+          repositories: node-sdk
           permission-contents: write
           # release-please opens its version PR on production with this same token.
           permission-pull-requests: write
