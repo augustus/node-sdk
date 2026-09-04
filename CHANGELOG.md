@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.15.1](https://github.com/augustus/node-sdk/compare/v2.15.0...v2.15.1) (2026-09-04)
+
+
+### Bug Fixes
+
+* bump main to resolve custom-code conflict, keep Ivy branding in package.json ([b3f29fc](https://github.com/augustus/node-sdk/commit/b3f29fc2b843f2faa0d216f2234a56ba9f659d02))
+* repository scope ([70f1e83](https://github.com/augustus/node-sdk/commit/70f1e83685740705a1c6b701bca5f5c5c3483f33))
+* repository scope ([339e564](https://github.com/augustus/node-sdk/commit/339e564f5d5cd3539cd346fc986b7cbf265c5f2f))
+
+
+### Chores
+
+* **backsync:** heal node-sdk / node-sdk-staging fork ([79cc6de](https://github.com/augustus/node-sdk/commit/79cc6de1945003243240d2f41d1c191836e4a9ad))
+* **backsync:** merge production main into staging ([cf30edb](https://github.com/augustus/node-sdk/commit/cf30edb0b71e707bfb34e2fe1ceb16f68e8761f0))
+* drop npm lockfile artifacts, restore yarn.lock ([311ca47](https://github.com/augustus/node-sdk/commit/311ca47e5cee5f05005762e9ae7b82b74ee53378))
+
 ## 2.15.0 (2026-08-28)
 
 Full Changelog: [v2.14.0...v2.15.0](https://github.com/augustus/node-sdk/compare/v2.14.0...v2.15.0)
