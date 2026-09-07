@@ -67,7 +67,7 @@ export namespace BeneficiaryPayoutCreateResponse {
     /**
      * The current status of the payout
      */
-    status: 'paid' | 'pending' | 'in_transit' | 'failed' | 'canceled';
+    status: 'paid' | 'pending' | 'in_transit' | 'failed' | 'returned' | 'canceled';
 
     /**
      * The type of payout

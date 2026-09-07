@@ -56,7 +56,7 @@ export interface Payout {
   /**
    * The payout status
    */
-  status: 'paid' | 'pending' | 'in_transit' | 'failed' | 'canceled';
+  status: 'paid' | 'pending' | 'in_transit' | 'failed' | 'returned' | 'canceled';
 
   /**
    * The payout type
@@ -236,7 +236,7 @@ export interface PayoutRetrieveResponse {
   /**
    * The payout status
    */
-  status: 'paid' | 'pending' | 'in_transit' | 'failed' | 'canceled';
+  status: 'paid' | 'pending' | 'in_transit' | 'failed' | 'returned' | 'canceled';
 
   /**
    * The payout type
@@ -427,7 +427,7 @@ export namespace PayoutListResponse {
     /**
      * The payout status
      */
-    status: 'paid' | 'pending' | 'in_transit' | 'failed' | 'canceled';
+    status: 'paid' | 'pending' | 'in_transit' | 'failed' | 'returned' | 'canceled';
 
     /**
      * The payout type
