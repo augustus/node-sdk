@@ -2,10 +2,15 @@ name: Promote SDKs
 
 # Promote staging to production by fast-forwarding production main up to staging,
 # preserving SHAs so the trunks stay identical and linear (nothing to heal on the
-# next stlc build). Manual dispatch by design: a maintainer promotes the accumulated
-# batch to cut a release, and the final step runs release-please against production
-# so the version PR is opened by the same run that promoted the batch.
+# next stlc build). Fires on every push to staging main (an stlc build, a merged PR,
+# a back-sync fast-forward) — the diff check right below makes an already-synced
+# push a no-op, so this is safe to run unconditionally. workflow_dispatch stays for
+# a manual re-run. release-please itself (opening/updating the version PR, and
+# tagging one a human already merged) lives entirely in the scheduled stlc-release
+# workflow now — this workflow only ever fast-forwards.
 on:
+  push:
+    branches: [main]
   workflow_dispatch: {}
 
 permissions:
@@ -16,8 +21,12 @@ jobs:
     # Runner comes from the STLC_RUNNER repo/org variable when set; defaults to GitHub-hosted.
     runs-on: ${{ vars.STLC_RUNNER || 'ubuntu-latest' }}
     if: github.repository == 'augustus/node-sdk-staging'
-    # Optional gate: add required reviewers to this environment to approve each
-    # promote. With none it only scopes secrets and adds no gate. Remove if unused.
+    concurrency:
+      group: stlc-promote
+      cancel-in-progress: true
+    # Required reviewers on this environment gate the actual fast-forward push:
+    # every push-triggered run pauses here for approval. Remove reviewers from the
+    # environment (or the `environment:` line) to let it run fully unattended.
     environment: production
     env:
       PRODUCTION_REPO: augustus/node-sdk
@@ -37,8 +46,6 @@ jobs:
           owner: ${{ github.repository_owner }}
           repositories: node-sdk
           permission-contents: write
-          # release-please opens its version PR on production with this same token.
-          permission-pull-requests: write
 
       - name: Fetch production main
         env:
@@ -72,13 +79,6 @@ jobs:
           fi
           git push production origin/main:refs/heads/main
           echo "Fast-forwarded production/main to staging/main."
-
-      - name: Release production and open its version PR
-        uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4.4.1
-        with:
-          token: ${{ steps.app_token.outputs.token }}
-          repo-url: ${{ env.PRODUCTION_REPO }}
-          target-branch: main
 
       - name: Send failure notification to Slack
         if: failure()

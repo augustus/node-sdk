@@ -1,0 +1,57 @@
+name: Release production
+
+# Runs release-please against production on a schedule, independent of Promote SDKs,
+# so a merged version PR gets tagged (and the next batch of commits gets its version
+# PR opened/updated) without anyone needing to remember to re-dispatch a promote.
+# This is the only place release-please runs against production — Promote SDKs only
+# fast-forwards, it doesn't touch release-please at all.
+on:
+  schedule:
+    # Every 15 minutes, offset from stlc-sync's :07/:37 slot; a no-op when there's
+    # nothing new to release or no outstanding commits to fold into a version PR.
+    - cron: '9,24,39,54 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    # Runner comes from the STLC_RUNNER repo/org variable when set; defaults to GitHub-hosted.
+    runs-on: ${{ vars.STLC_RUNNER || 'ubuntu-latest' }}
+    if: github.repository == 'augustus/node-sdk-staging'
+    concurrency:
+      group: stlc-release
+      cancel-in-progress: false
+    # No `environment: production` here on purpose: Promote SDKs uses it as a manual
+    # review step before fast-forwarding + releasing, but this job runs unattended on
+    # a timer and only opens/updates a version PR or tags one a human already merged.
+    env:
+      PRODUCTION_REPO: augustus/node-sdk
+    steps:
+      - name: Generate GitHub App token
+        id: app_token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.IVY_RELEASE_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.IVY_RELEASE_BOT_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: node-sdk
+          permission-contents: write
+          # release-please opens/updates its version PR on production with this token.
+          permission-pull-requests: write
+
+      - name: Release production and open/update its version PR
+        uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4.4.1
+        with:
+          token: ${{ steps.app_token.outputs.token }}
+          repo-url: ${{ env.PRODUCTION_REPO }}
+          target-branch: main
+
+      - name: Send failure notification to Slack
+        if: failure()
+        uses: augustus/actions/.github/actions/slack-job-status@e2e323107d7db47f8112eeed5853ecab8cab3e87 # v1.34.4
+        with:
+          job_name: 'stlc release'
+          status: failure
+          channel_id: 'C0BSAEGQWHH'
