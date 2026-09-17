@@ -20,7 +20,7 @@ or products provided by Ivy, please follow the respective company's security rep
 
 ### Ivy Terms and Policies
 
-Please contact developer@getivy.de for any questions or concerns regarding the security of our services.
+Please contact developer@augustus.com for any questions or concerns regarding the security of our services.
 
 ---
 
