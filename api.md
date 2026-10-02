@@ -148,6 +148,22 @@ Methods:
 - <code title="post /api/service/subaccount/create">client.subaccounts.<a href="./src/resources/subaccounts.ts">create</a>({ ...params }) -> SubaccountCreateResponse</code>
 - <code title="post /api/service/subaccount/retrieve">client.subaccounts.<a href="./src/resources/subaccounts.ts">retrieve</a>({ ...params }) -> Subaccount</code>
 
+# Counterparties
+
+Types:
+
+- <code><a href="./src/resources/counterparties.ts">Counterparty</a></code>
+- <code><a href="./src/resources/counterparties.ts">CounterpartyRetrieveResponse</a></code>
+- <code><a href="./src/resources/counterparties.ts">CounterpartyUpdateResponse</a></code>
+- <code><a href="./src/resources/counterparties.ts">CounterpartyListResponse</a></code>
+
+Methods:
+
+- <code title="post /api/service/counterparty/create">client.counterparties.<a href="./src/resources/counterparties.ts">create</a>({ ...params }) -> Counterparty</code>
+- <code title="post /api/service/counterparty/retrieve">client.counterparties.<a href="./src/resources/counterparties.ts">retrieve</a>({ ...params }) -> CounterpartyRetrieveResponse</code>
+- <code title="post /api/service/counterparty/update">client.counterparties.<a href="./src/resources/counterparties.ts">update</a>({ ...params }) -> CounterpartyUpdateResponse</code>
+- <code title="post /api/service/counterparty/list">client.counterparties.<a href="./src/resources/counterparties.ts">list</a>({ ...params }) -> CounterpartyListResponse</code>
+
 # Balance
 
 Types:

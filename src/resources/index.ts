@@ -22,6 +22,17 @@ export {
   type CheckoutsessionExpireParams,
 } from './checkoutsession';
 export {
+  Counterparties,
+  type Counterparty,
+  type CounterpartyRetrieveResponse,
+  type CounterpartyUpdateResponse,
+  type CounterpartyListResponse,
+  type CounterpartyCreateParams,
+  type CounterpartyRetrieveParams,
+  type CounterpartyUpdateParams,
+  type CounterpartyListParams,
+} from './counterparties';
+export {
   Customers,
   type CustomerCreateResponse,
   type CustomerRetrieveResponse,

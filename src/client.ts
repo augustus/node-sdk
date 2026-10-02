@@ -39,6 +39,17 @@ import {
   CheckoutsessionRetrieveResponse,
 } from './resources/checkoutsession';
 import {
+  Counterparties,
+  Counterparty,
+  CounterpartyCreateParams,
+  CounterpartyListParams,
+  CounterpartyListResponse,
+  CounterpartyRetrieveParams,
+  CounterpartyRetrieveResponse,
+  CounterpartyUpdateParams,
+  CounterpartyUpdateResponse,
+} from './resources/counterparties';
+import {
   CustomerCreateParams,
   CustomerCreateResponse,
   CustomerDeleteParams,
@@ -851,6 +862,7 @@ export class Ivy {
   refunds: API.Refunds = new API.Refunds(this);
   payouts: API.Payouts = new API.Payouts(this);
   subaccounts: API.Subaccounts = new API.Subaccounts(this);
+  counterparties: API.Counterparties = new API.Counterparties(this);
   balance: API.Balance = new API.Balance(this);
   webhook: API.Webhook = new API.Webhook(this);
   payee: API.Payee = new API.Payee(this);
@@ -868,6 +880,7 @@ Ivy.Capabilities = Capabilities;
 Ivy.Refunds = Refunds;
 Ivy.Payouts = Payouts;
 Ivy.Subaccounts = Subaccounts;
+Ivy.Counterparties = Counterparties;
 Ivy.Balance = Balance;
 Ivy.Webhook = Webhook;
 Ivy.Payee = Payee;
@@ -974,6 +987,18 @@ export declare namespace Ivy {
     type SubaccountCreateResponse as SubaccountCreateResponse,
     type SubaccountCreateParams as SubaccountCreateParams,
     type SubaccountRetrieveParams as SubaccountRetrieveParams,
+  };
+
+  export {
+    Counterparties as Counterparties,
+    type Counterparty as Counterparty,
+    type CounterpartyRetrieveResponse as CounterpartyRetrieveResponse,
+    type CounterpartyUpdateResponse as CounterpartyUpdateResponse,
+    type CounterpartyListResponse as CounterpartyListResponse,
+    type CounterpartyCreateParams as CounterpartyCreateParams,
+    type CounterpartyRetrieveParams as CounterpartyRetrieveParams,
+    type CounterpartyUpdateParams as CounterpartyUpdateParams,
+    type CounterpartyListParams as CounterpartyListParams,
   };
 
   export {
