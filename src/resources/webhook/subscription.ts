@@ -81,6 +81,12 @@ export interface SubscriptionCreateResponse {
     | 'fx.initiated'
     | 'fx.succeeded'
     | 'fx.failed'
+    | 'counterparty.created'
+    | 'counterparty.updated'
+    | 'counterparty.verified'
+    | 'counterparty.rejected'
+    | 'counterparty.blocked'
+    | 'counterparty.unblocked'
   >;
 
   merchant: unknown;
@@ -129,6 +135,12 @@ export interface SubscriptionUpdateResponse {
     | 'fx.initiated'
     | 'fx.succeeded'
     | 'fx.failed'
+    | 'counterparty.created'
+    | 'counterparty.updated'
+    | 'counterparty.verified'
+    | 'counterparty.rejected'
+    | 'counterparty.blocked'
+    | 'counterparty.unblocked'
   >;
 
   merchant: unknown;
@@ -200,6 +212,12 @@ export namespace SubscriptionListResponse {
       | 'fx.initiated'
       | 'fx.succeeded'
       | 'fx.failed'
+      | 'counterparty.created'
+      | 'counterparty.updated'
+      | 'counterparty.verified'
+      | 'counterparty.rejected'
+      | 'counterparty.blocked'
+      | 'counterparty.unblocked'
     >;
 
     merchant: unknown;
@@ -287,6 +305,12 @@ export interface SubscriptionCreateParams {
     | 'fx.initiated'
     | 'fx.succeeded'
     | 'fx.failed'
+    | 'counterparty.created'
+    | 'counterparty.updated'
+    | 'counterparty.verified'
+    | 'counterparty.rejected'
+    | 'counterparty.blocked'
+    | 'counterparty.unblocked'
   >;
 }
 
@@ -331,6 +355,12 @@ export interface SubscriptionUpdateParams {
     | 'fx.initiated'
     | 'fx.succeeded'
     | 'fx.failed'
+    | 'counterparty.created'
+    | 'counterparty.updated'
+    | 'counterparty.verified'
+    | 'counterparty.rejected'
+    | 'counterparty.blocked'
+    | 'counterparty.unblocked'
   >;
 
   /**

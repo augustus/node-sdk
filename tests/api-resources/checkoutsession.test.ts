@@ -104,6 +104,12 @@ describe('resource checkoutsession', () => {
             bban: 'bban',
             bic: 'bic',
           },
+          bic: {
+            accountHolderName: 'x',
+            accountNumber: 'accountNumber',
+            bic: 'bic',
+            localBankCode: 'localBankCode',
+          },
           iban: {
             accountHolderName: 'x',
             iban: 'iban',

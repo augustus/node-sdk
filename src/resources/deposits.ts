@@ -100,13 +100,15 @@ export namespace DepositRetrieveResponse {
    * The payee account identifier
    */
   export interface Payee {
-    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
     aba?: Payee.Aba;
 
     bankCode?: Payee.BankCode;
 
     bban?: Payee.Bban;
+
+    bic?: Payee.Bic;
 
     iban?: Payee.Iban;
 
@@ -138,6 +140,16 @@ export namespace DepositRetrieveResponse {
       bban: string;
 
       bic?: string;
+    }
+
+    export interface Bic {
+      accountHolderName: string;
+
+      accountNumber: string;
+
+      bic: string;
+
+      localBankCode?: string;
     }
 
     export interface Iban {
@@ -181,13 +193,15 @@ export namespace DepositRetrieveResponse {
    * The payer account identifier
    */
   export interface Payer {
-    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
     aba?: Payer.Aba;
 
     bankCode?: Payer.BankCode;
 
     bban?: Payer.Bban;
+
+    bic?: Payer.Bic;
 
     iban?: Payer.Iban;
 
@@ -219,6 +233,16 @@ export namespace DepositRetrieveResponse {
       bban: string;
 
       bic?: string;
+    }
+
+    export interface Bic {
+      accountHolderName: string;
+
+      accountNumber: string;
+
+      bic: string;
+
+      localBankCode?: string;
     }
 
     export interface Iban {

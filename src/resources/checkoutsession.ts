@@ -7,8 +7,9 @@ import { RequestOptions } from '../internal/request-options';
 export class Checkoutsession extends APIResource {
   /**
    * Creates a Checkout Session for the merchant corresponding to the given API key.
-   * See [the guide](https://docs.getivy.de/docs/payment-integration) for more
-   * information.
+   * See
+   * [the guide](https://docs.augustus.com/docs/pay-by-bank/instant-bank-transfer)
+   * for more information.
    */
   create(
     body: CheckoutsessionCreateParams,
@@ -5511,13 +5512,15 @@ export namespace CheckoutsessionCreateParams {
     }
 
     export interface FinancialAddress {
-      type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+      type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
       aba?: FinancialAddress.Aba;
 
       bankCode?: FinancialAddress.BankCode;
 
       bban?: FinancialAddress.Bban;
+
+      bic?: FinancialAddress.Bic;
 
       iban?: FinancialAddress.Iban;
 
@@ -5549,6 +5552,16 @@ export namespace CheckoutsessionCreateParams {
         bban: string;
 
         bic?: string;
+      }
+
+      export interface Bic {
+        accountHolderName: string;
+
+        accountNumber: string;
+
+        bic: string;
+
+        localBankCode?: string;
       }
 
       export interface Iban {

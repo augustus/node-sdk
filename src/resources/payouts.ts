@@ -94,13 +94,15 @@ export namespace Payout {
    * The payout destination
    */
   export interface Destination {
-    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
     aba?: Destination.Aba;
 
     bankCode?: Destination.BankCode;
 
     bban?: Destination.Bban;
+
+    bic?: Destination.Bic;
 
     iban?: Destination.Iban;
 
@@ -132,6 +134,16 @@ export namespace Payout {
       bban: string;
 
       bic?: string;
+    }
+
+    export interface Bic {
+      accountHolderName: string;
+
+      accountNumber: string;
+
+      bic: string;
+
+      localBankCode?: string;
     }
 
     export interface Iban {
@@ -274,13 +286,15 @@ export namespace PayoutRetrieveResponse {
    * The payout destination
    */
   export interface Destination {
-    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
     aba?: Destination.Aba;
 
     bankCode?: Destination.BankCode;
 
     bban?: Destination.Bban;
+
+    bic?: Destination.Bic;
 
     iban?: Destination.Iban;
 
@@ -312,6 +326,16 @@ export namespace PayoutRetrieveResponse {
       bban: string;
 
       bic?: string;
+    }
+
+    export interface Bic {
+      accountHolderName: string;
+
+      accountNumber: string;
+
+      bic: string;
+
+      localBankCode?: string;
     }
 
     export interface Iban {
@@ -465,13 +489,15 @@ export namespace PayoutListResponse {
      * The payout destination
      */
     export interface Destination {
-      type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+      type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
       aba?: Destination.Aba;
 
       bankCode?: Destination.BankCode;
 
       bban?: Destination.Bban;
+
+      bic?: Destination.Bic;
 
       iban?: Destination.Iban;
 
@@ -503,6 +529,16 @@ export namespace PayoutListResponse {
         bban: string;
 
         bic?: string;
+      }
+
+      export interface Bic {
+        accountHolderName: string;
+
+        accountNumber: string;
+
+        bic: string;
+
+        localBankCode?: string;
       }
 
       export interface Iban {
@@ -935,13 +971,15 @@ export namespace PayoutCreateParams {
     }
 
     export interface FinancialAddress {
-      type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+      type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
       aba?: FinancialAddress.Aba;
 
       bankCode?: FinancialAddress.BankCode;
 
       bban?: FinancialAddress.Bban;
+
+      bic?: FinancialAddress.Bic;
 
       iban?: FinancialAddress.Iban;
 
@@ -973,6 +1011,16 @@ export namespace PayoutCreateParams {
         bban: string;
 
         bic?: string;
+      }
+
+      export interface Bic {
+        accountHolderName: string;
+
+        accountNumber: string;
+
+        bic: string;
+
+        localBankCode?: string;
       }
 
       export interface Iban {

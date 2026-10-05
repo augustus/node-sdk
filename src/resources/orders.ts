@@ -540,13 +540,15 @@ export namespace OrderCreateResponse {
 
   export namespace Destination {
     export interface BankAccount {
-      type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+      type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
       aba?: BankAccount.Aba;
 
       bankCode?: BankAccount.BankCode;
 
       bban?: BankAccount.Bban;
+
+      bic?: BankAccount.Bic;
 
       iban?: BankAccount.Iban;
 
@@ -580,6 +582,16 @@ export namespace OrderCreateResponse {
         bban: string;
 
         bic?: string;
+      }
+
+      export interface Bic {
+        accountHolderName: string;
+
+        accountNumber: string;
+
+        bic: string;
+
+        localBankCode?: string;
       }
 
       export interface Iban {
@@ -679,13 +691,15 @@ export namespace OrderCreateResponse {
    * when requested via order/details and therefore requires authentication.
    */
   export interface MerchantFinancialAddress {
-    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
     aba?: MerchantFinancialAddress.Aba;
 
     bankCode?: MerchantFinancialAddress.BankCode;
 
     bban?: MerchantFinancialAddress.Bban;
+
+    bic?: MerchantFinancialAddress.Bic;
 
     iban?: MerchantFinancialAddress.Iban;
 
@@ -719,6 +733,16 @@ export namespace OrderCreateResponse {
       bban: string;
 
       bic?: string;
+    }
+
+    export interface Bic {
+      accountHolderName: string;
+
+      accountNumber: string;
+
+      bic: string;
+
+      localBankCode?: string;
     }
 
     export interface Iban {
@@ -763,13 +787,15 @@ export namespace OrderCreateResponse {
    * after successful PIS flow.
    */
   export interface PayerFinancialAddress {
-    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
     aba?: PayerFinancialAddress.Aba;
 
     bankCode?: PayerFinancialAddress.BankCode;
 
     bban?: PayerFinancialAddress.Bban;
+
+    bic?: PayerFinancialAddress.Bic;
 
     iban?: PayerFinancialAddress.Iban;
 
@@ -801,6 +827,16 @@ export namespace OrderCreateResponse {
       accountHolderName?: string;
 
       bic?: string;
+    }
+
+    export interface Bic {
+      accountNumber: string;
+
+      bic: string;
+
+      accountHolderName?: string;
+
+      localBankCode?: string;
     }
 
     export interface Iban {
@@ -1761,13 +1797,15 @@ export namespace OrderRetrieveResponse {
 
   export namespace Destination {
     export interface BankAccount {
-      type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+      type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
       aba?: BankAccount.Aba;
 
       bankCode?: BankAccount.BankCode;
 
       bban?: BankAccount.Bban;
+
+      bic?: BankAccount.Bic;
 
       iban?: BankAccount.Iban;
 
@@ -1801,6 +1839,16 @@ export namespace OrderRetrieveResponse {
         bban: string;
 
         bic?: string;
+      }
+
+      export interface Bic {
+        accountHolderName: string;
+
+        accountNumber: string;
+
+        bic: string;
+
+        localBankCode?: string;
       }
 
       export interface Iban {
@@ -1900,13 +1948,15 @@ export namespace OrderRetrieveResponse {
    * when requested via order/details and therefore requires authentication.
    */
   export interface MerchantFinancialAddress {
-    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
     aba?: MerchantFinancialAddress.Aba;
 
     bankCode?: MerchantFinancialAddress.BankCode;
 
     bban?: MerchantFinancialAddress.Bban;
+
+    bic?: MerchantFinancialAddress.Bic;
 
     iban?: MerchantFinancialAddress.Iban;
 
@@ -1940,6 +1990,16 @@ export namespace OrderRetrieveResponse {
       bban: string;
 
       bic?: string;
+    }
+
+    export interface Bic {
+      accountHolderName: string;
+
+      accountNumber: string;
+
+      bic: string;
+
+      localBankCode?: string;
     }
 
     export interface Iban {
@@ -1984,13 +2044,15 @@ export namespace OrderRetrieveResponse {
    * after successful PIS flow.
    */
   export interface PayerFinancialAddress {
-    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
     aba?: PayerFinancialAddress.Aba;
 
     bankCode?: PayerFinancialAddress.BankCode;
 
     bban?: PayerFinancialAddress.Bban;
+
+    bic?: PayerFinancialAddress.Bic;
 
     iban?: PayerFinancialAddress.Iban;
 
@@ -2022,6 +2084,16 @@ export namespace OrderRetrieveResponse {
       accountHolderName?: string;
 
       bic?: string;
+    }
+
+    export interface Bic {
+      accountNumber: string;
+
+      bic: string;
+
+      accountHolderName?: string;
+
+      localBankCode?: string;
     }
 
     export interface Iban {
@@ -2982,13 +3054,15 @@ export namespace OrderExpireResponse {
 
   export namespace Destination {
     export interface BankAccount {
-      type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+      type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
       aba?: BankAccount.Aba;
 
       bankCode?: BankAccount.BankCode;
 
       bban?: BankAccount.Bban;
+
+      bic?: BankAccount.Bic;
 
       iban?: BankAccount.Iban;
 
@@ -3022,6 +3096,16 @@ export namespace OrderExpireResponse {
         bban: string;
 
         bic?: string;
+      }
+
+      export interface Bic {
+        accountHolderName: string;
+
+        accountNumber: string;
+
+        bic: string;
+
+        localBankCode?: string;
       }
 
       export interface Iban {
@@ -3121,13 +3205,15 @@ export namespace OrderExpireResponse {
    * when requested via order/details and therefore requires authentication.
    */
   export interface MerchantFinancialAddress {
-    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
     aba?: MerchantFinancialAddress.Aba;
 
     bankCode?: MerchantFinancialAddress.BankCode;
 
     bban?: MerchantFinancialAddress.Bban;
+
+    bic?: MerchantFinancialAddress.Bic;
 
     iban?: MerchantFinancialAddress.Iban;
 
@@ -3161,6 +3247,16 @@ export namespace OrderExpireResponse {
       bban: string;
 
       bic?: string;
+    }
+
+    export interface Bic {
+      accountHolderName: string;
+
+      accountNumber: string;
+
+      bic: string;
+
+      localBankCode?: string;
     }
 
     export interface Iban {
@@ -3205,13 +3301,15 @@ export namespace OrderExpireResponse {
    * after successful PIS flow.
    */
   export interface PayerFinancialAddress {
-    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba';
+    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
 
     aba?: PayerFinancialAddress.Aba;
 
     bankCode?: PayerFinancialAddress.BankCode;
 
     bban?: PayerFinancialAddress.Bban;
+
+    bic?: PayerFinancialAddress.Bic;
 
     iban?: PayerFinancialAddress.Iban;
 
@@ -3243,6 +3341,16 @@ export namespace OrderExpireResponse {
       accountHolderName?: string;
 
       bic?: string;
+    }
+
+    export interface Bic {
+      accountNumber: string;
+
+      bic: string;
+
+      accountHolderName?: string;
+
+      localBankCode?: string;
     }
 
     export interface Iban {
