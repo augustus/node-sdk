@@ -1,6 +1,6 @@
 {
   "name": "@getivy/node-sdk",
-  "version": "2.15.1",
+  "version": "2.16.0",
   "description": "The official TypeScript library for the Ivy API",
   "author": "Ivy <developer@augustus.com>",
   "types": "dist/index.d.ts",
