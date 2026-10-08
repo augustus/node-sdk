@@ -7,8 +7,8 @@ name: Sync SDK repos
 # workflow is added to the production repo — this file lives in staging only.
 on:
   schedule:
-    # Cheap pure-git check twice hourly; a no-op when staging already has
-    # production's content.
+    # Cheap pure-git check twice hourly; a no-op when staging already contains
+    # production main.
     - cron: '7,37 * * * *'
   workflow_dispatch: {}
 
@@ -38,27 +38,19 @@ jobs:
           git remote add production "https://github.com/${PRODUCTION_REPO}.git"
           git fetch production main
 
-      - name: Check whether staging already has production's content
+      - name: Check whether staging already has production main
         id: diff
         run: |
-          # Content compare, not SHA compare: production carries release-please
-          # commits staging lacks even when there's nothing left to pull back.
-          MERGED=$(git merge-tree --write-tree origin/main production/main) || MERGED=conflict
-          STAGING_TREE=$(git rev-parse 'origin/main^{tree}')
-          if [ "$MERGED" = "$STAGING_TREE" ]; then
-            echo "Staging already has production's content. Nothing to pull back."
+          # Compare ancestry, not trees: a content-empty commit on production
+          # (e.g. a manual merge-commit PR) must still come back, or staging is
+          # no longer a descendant of production and emerald holds codegen.
+          if git merge-base --is-ancestor production/main origin/main; then
+            echo "Staging already contains production main. Nothing to pull back."
             echo "behind=false" >> "$GITHUB_OUTPUT"
-          else
+          elif git merge-base --is-ancestor origin/main production/main; then
             echo "behind=true" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Verify staging is an ancestor of production
-        if: steps.diff.outputs.behind == 'true'
-        run: |
-          # Refuse unless staging is an ancestor of production: otherwise the
-          # trunks have forked and a fast-forward would be unsafe.
-          if ! git merge-base --is-ancestor origin/main production/main; then
-            echo "::error title=Back-sync blocked::staging main is not an ancestor of production/main. The trunks have forked and need a manual heal before this can fast-forward again."
+          else
+            echo "::error title=Back-sync blocked::The trunks have forked (neither main is an ancestor of the other). Heal with a merge-commit PR that merges production main into staging."
             exit 1
           fi
 
