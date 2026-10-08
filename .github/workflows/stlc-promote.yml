@@ -24,9 +24,8 @@ jobs:
     concurrency:
       group: stlc-promote
       cancel-in-progress: true
-    # Required reviewers on this environment gate the actual fast-forward push:
-    # every push-triggered run pauses here for approval. Remove reviewers from the
-    # environment (or the `environment:` line) to let it run fully unattended.
+    # No required reviewers on this environment: promote runs unattended. Adding
+    # reviewers would pause every push-triggered run and let the trunks drift.
     environment: production
     env:
       PRODUCTION_REPO: augustus/node-sdk
@@ -55,26 +54,29 @@ jobs:
             "https://x-access-token:${GH_TOKEN}@github.com/${PRODUCTION_REPO}.git"
           git fetch production main
 
-      - name: Check whether production already has staging's content
+      - name: Check whether production already has staging main
         id: diff
         run: |
-          # After a release, production has release-please commits staging lacks, so compare trees.
-          MERGED=$(git merge-tree --write-tree production/main origin/main) || MERGED=conflict
-          PRODUCTION_TREE=$(git rev-parse 'production/main^{tree}')
-          if [ "$MERGED" = "$PRODUCTION_TREE" ]; then
-            echo "Production already contains staging's content. Nothing to promote."
+          # Compare ancestry, not trees: a content-empty commit on staging (e.g. a
+          # reconcile merge) must still reach production, or the next release
+          # forks the trunks.
+          if git merge-base --is-ancestor origin/main production/main; then
+            echo "Production already contains staging main. Nothing to promote."
             echo "synced=true" >> "$GITHUB_OUTPUT"
-          else
+          elif git merge-base --is-ancestor production/main origin/main; then
             echo "synced=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error title=Promote blocked::The trunks have forked (neither main is an ancestor of the other). Back-sync production into staging with a merge-commit PR first."
+            exit 1
           fi
 
       - name: Promote staging to production (fast-forward)
         if: steps.diff.outputs.synced == 'false'
         run: |
-          # Refuse unless production is an ancestor of staging: otherwise the trunks
-          # have forked (production advanced without a back-sync) and FF is unsafe.
-          if ! git merge-base --is-ancestor production/main origin/main; then
-            echo "::error title=Promote blocked::production/main is not an ancestor of staging main. Back-sync production into staging first."
+          # The App token has no `workflows` permission, so GitHub rejects a push
+          # that changes workflow files. Fail with the manual procedure instead.
+          if [ -n "$(git diff --name-only production/main origin/main -- .github/workflows)" ]; then
+            echo "::error title=Promote needs a manual PR::Staging main changes .github/workflows, which the App can't push. Open a PR on ${PRODUCTION_REPO} from a branch at staging main and merge it with 'Create a merge commit'; back-sync then fast-forwards staging to that merge."
             exit 1
           fi
           git push production origin/main:refs/heads/main
