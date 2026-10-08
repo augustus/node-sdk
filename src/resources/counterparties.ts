@@ -89,6 +89,11 @@ export interface Counterparty {
   physicalAddress: Counterparty.PhysicalAddress | null;
 
   /**
+   * The counterparty lifecycle status
+   */
+  status: 'pending' | 'active' | 'rejected';
+
+  /**
    * When the counterparty was last updated
    */
   updatedAt: unknown;
@@ -526,6 +531,11 @@ export interface CounterpartyRetrieveResponse {
   physicalAddress: CounterpartyRetrieveResponse.PhysicalAddress | null;
 
   /**
+   * The counterparty lifecycle status
+   */
+  status: 'pending' | 'active' | 'rejected';
+
+  /**
    * When the counterparty was last updated
    */
   updatedAt: unknown;
@@ -961,6 +971,11 @@ export interface CounterpartyUpdateResponse {
    * A structured physical postal address.
    */
   physicalAddress: CounterpartyUpdateResponse.PhysicalAddress | null;
+
+  /**
+   * The counterparty lifecycle status
+   */
+  status: 'pending' | 'active' | 'rejected';
 
   /**
    * When the counterparty was last updated
@@ -1411,6 +1426,11 @@ export namespace CounterpartyListResponse {
      * A structured physical postal address.
      */
     physicalAddress: Data.PhysicalAddress | null;
+
+    /**
+     * The counterparty lifecycle status
+     */
+    status: 'pending' | 'active' | 'rejected';
 
     /**
      * When the counterparty was last updated
