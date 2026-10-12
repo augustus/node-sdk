@@ -47,7 +47,7 @@ export class Subscription extends APIResource {
 export interface SubscriptionCreateResponse {
   id: unknown;
 
-  createdAt: unknown;
+  createdAt: string;
 
   events: Array<
     | 'test'
@@ -93,7 +93,7 @@ export interface SubscriptionCreateResponse {
 
   merchantApp: unknown;
 
-  updatedAt: unknown;
+  updatedAt: string;
 
   url: string;
 }
@@ -101,7 +101,7 @@ export interface SubscriptionCreateResponse {
 export interface SubscriptionUpdateResponse {
   id: unknown;
 
-  createdAt: unknown;
+  createdAt: string;
 
   events: Array<
     | 'test'
@@ -147,7 +147,7 @@ export interface SubscriptionUpdateResponse {
 
   merchantApp: unknown;
 
-  updatedAt: unknown;
+  updatedAt: string;
 
   url: string;
 }
@@ -178,7 +178,7 @@ export namespace SubscriptionListResponse {
   export interface Item {
     id: unknown;
 
-    createdAt: unknown;
+    createdAt: string;
 
     events: Array<
       | 'test'
@@ -224,7 +224,7 @@ export namespace SubscriptionListResponse {
 
     merchantApp: unknown;
 
-    updatedAt: unknown;
+    updatedAt: string;
 
     url: string;
   }
@@ -246,7 +246,7 @@ export interface SubscriptionPingResponse {
   /**
    * The timestamp when the ping was executed
    */
-  date: unknown;
+  date: string;
 
   /**
    * The response from the webhook endpoint

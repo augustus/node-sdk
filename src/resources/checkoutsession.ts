@@ -330,7 +330,7 @@ export interface CheckoutsessionCreateResponse {
 
   completeCallbackUrl?: string;
 
-  createdAt?: unknown;
+  createdAt?: string;
 
   customer?: CheckoutsessionCreateResponse.Customer;
 
@@ -628,7 +628,7 @@ export interface CheckoutsessionCreateResponse {
 
   subaccountId?: string;
 
-  updatedAt?: unknown;
+  updatedAt?: string;
 }
 
 export namespace CheckoutsessionCreateResponse {
@@ -1819,7 +1819,7 @@ export interface CheckoutsessionRetrieveResponse {
 
   completeCallbackUrl?: string;
 
-  createdAt?: unknown;
+  createdAt?: string;
 
   customer?: CheckoutsessionRetrieveResponse.Customer;
 
@@ -2117,7 +2117,7 @@ export interface CheckoutsessionRetrieveResponse {
 
   subaccountId?: string;
 
-  updatedAt?: unknown;
+  updatedAt?: string;
 }
 
 export namespace CheckoutsessionRetrieveResponse {
@@ -3308,7 +3308,7 @@ export interface CheckoutsessionExpireResponse {
 
   completeCallbackUrl?: string;
 
-  createdAt?: unknown;
+  createdAt?: string;
 
   customer?: CheckoutsessionExpireResponse.Customer;
 
@@ -3606,7 +3606,7 @@ export interface CheckoutsessionExpireResponse {
 
   subaccountId?: string;
 
-  updatedAt?: unknown;
+  updatedAt?: string;
 }
 
 export namespace CheckoutsessionExpireResponse {

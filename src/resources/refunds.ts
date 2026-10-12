@@ -88,7 +88,7 @@ export interface RefundCreateResponse {
 }
 
 export interface RefundCreateParams {
-  amount: number;
+  amount?: number;
 
   /**
    * An optional custom text that will be shown on the customer's payment reference.

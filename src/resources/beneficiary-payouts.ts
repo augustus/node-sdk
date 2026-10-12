@@ -36,7 +36,7 @@ export namespace BeneficiaryPayoutCreateResponse {
     /**
      * The creation timestamp of the payout
      */
-    createdAt: unknown;
+    createdAt: string;
 
     /**
      * The currency of the balance which was settled to the beneficiary bank account or

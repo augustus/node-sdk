@@ -11,7 +11,7 @@ describe('resource payouts', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.payouts.create({
-      amount: 1.01,
+      amount: 0.01,
       currency: 'EUR',
       destination: {},
     });
@@ -27,12 +27,12 @@ describe('resource payouts', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.payouts.create({
-      amount: 1.01,
+      amount: 0.01,
       currency: 'EUR',
       destination: {
         address: {
           city: 'x',
-          countryCode: 'AF',
+          countryCode: 'DE',
           line1: 'x',
           line2: 'x',
           postalCode: 'x',
@@ -43,7 +43,7 @@ describe('resource payouts', () => {
           aba: {
             accountHolderName: 'x',
             accountNumber: '269125115713',
-            routingNumber: '269125115713',
+            routingNumber: '275273409',
           },
           bankCode: {
             accountHolderName: 'x',
@@ -69,7 +69,7 @@ describe('resource payouts', () => {
           sortCode: {
             accountHolderName: 'x',
             accountNumber: '095',
-            sortCode: '269125115713',
+            sortCode: '631011',
           },
           wallet: { address: 'address', blockchain: 'BTC' },
         },

@@ -10,7 +10,7 @@ const client = new Ivy({
 describe('resource capabilities', () => {
   // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.capabilities.retrieve({ market: 'AF' });
+    const responsePromise = client.capabilities.retrieve({ market: 'DE' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,6 +22,6 @@ describe('resource capabilities', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
-    const response = await client.capabilities.retrieve({ market: 'AF' });
+    const response = await client.capabilities.retrieve({ market: 'DE' });
   });
 });

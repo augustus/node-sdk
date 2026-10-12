@@ -49,7 +49,7 @@ export interface OrderCreateResponse {
    */
   applicationFeeAmount: number;
 
-  createdAt: unknown;
+  createdAt: string;
 
   instantPaymentScheme: boolean;
 
@@ -95,7 +95,7 @@ export interface OrderCreateResponse {
     | 'refused'
     | 'finalizing';
 
-  updatedAt: unknown;
+  updatedAt: string;
 
   /**
    * The unique identifier of the customer's bank.
@@ -887,7 +887,7 @@ export namespace OrderCreateResponse {
      */
     amount: number;
 
-    createdAt: unknown;
+    createdAt: string;
 
     /**
      * The unique id of this refund request. This can be set when requesting the
@@ -900,7 +900,7 @@ export namespace OrderCreateResponse {
      */
     status: 'pending' | 'succeeded' | 'failed' | 'requires_action' | 'partially_refunded';
 
-    updatedAt: unknown;
+    updatedAt: string;
 
     /**
      * The description of the refund.
@@ -1218,7 +1218,7 @@ export namespace OrderCreateResponse {
   }
 
   export interface StatusHistoryList {
-    createdAt: unknown;
+    createdAt: string;
 
     currentStatus:
       | 'failed'
@@ -1269,7 +1269,7 @@ export namespace OrderCreateResponse {
       | 'ORDER_MANUALLY_REOPENED'
       | 'ORDER_FINALIZATION_STARTED';
 
-    updatedAt: unknown;
+    updatedAt: string;
 
     previousStatus?:
       | 'failed'
@@ -1306,7 +1306,7 @@ export interface OrderRetrieveResponse {
    */
   applicationFeeAmount: number;
 
-  createdAt: unknown;
+  createdAt: string;
 
   instantPaymentScheme: boolean;
 
@@ -1352,7 +1352,7 @@ export interface OrderRetrieveResponse {
     | 'refused'
     | 'finalizing';
 
-  updatedAt: unknown;
+  updatedAt: string;
 
   /**
    * The unique identifier of the customer's bank.
@@ -2144,7 +2144,7 @@ export namespace OrderRetrieveResponse {
      */
     amount: number;
 
-    createdAt: unknown;
+    createdAt: string;
 
     /**
      * The unique id of this refund request. This can be set when requesting the
@@ -2157,7 +2157,7 @@ export namespace OrderRetrieveResponse {
      */
     status: 'pending' | 'succeeded' | 'failed' | 'requires_action' | 'partially_refunded';
 
-    updatedAt: unknown;
+    updatedAt: string;
 
     /**
      * The description of the refund.
@@ -2475,7 +2475,7 @@ export namespace OrderRetrieveResponse {
   }
 
   export interface StatusHistoryList {
-    createdAt: unknown;
+    createdAt: string;
 
     currentStatus:
       | 'failed'
@@ -2526,7 +2526,7 @@ export namespace OrderRetrieveResponse {
       | 'ORDER_MANUALLY_REOPENED'
       | 'ORDER_FINALIZATION_STARTED';
 
-    updatedAt: unknown;
+    updatedAt: string;
 
     previousStatus?:
       | 'failed'
@@ -2563,7 +2563,7 @@ export interface OrderExpireResponse {
    */
   applicationFeeAmount: number;
 
-  createdAt: unknown;
+  createdAt: string;
 
   instantPaymentScheme: boolean;
 
@@ -2609,7 +2609,7 @@ export interface OrderExpireResponse {
     | 'refused'
     | 'finalizing';
 
-  updatedAt: unknown;
+  updatedAt: string;
 
   /**
    * The unique identifier of the customer's bank.
@@ -3401,7 +3401,7 @@ export namespace OrderExpireResponse {
      */
     amount: number;
 
-    createdAt: unknown;
+    createdAt: string;
 
     /**
      * The unique id of this refund request. This can be set when requesting the
@@ -3414,7 +3414,7 @@ export namespace OrderExpireResponse {
      */
     status: 'pending' | 'succeeded' | 'failed' | 'requires_action' | 'partially_refunded';
 
-    updatedAt: unknown;
+    updatedAt: string;
 
     /**
      * The description of the refund.
@@ -3732,7 +3732,7 @@ export namespace OrderExpireResponse {
   }
 
   export interface StatusHistoryList {
-    createdAt: unknown;
+    createdAt: string;
 
     currentStatus:
       | 'failed'
@@ -3783,7 +3783,7 @@ export namespace OrderExpireResponse {
       | 'ORDER_MANUALLY_REOPENED'
       | 'ORDER_FINALIZATION_STARTED';
 
-    updatedAt: unknown;
+    updatedAt: string;
 
     previousStatus?:
       | 'failed'

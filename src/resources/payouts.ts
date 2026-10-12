@@ -41,7 +41,7 @@ export interface Payout {
   /**
    * The payout created at
    */
-  createdAt: unknown;
+  createdAt: string;
 
   /**
    * The payout currency
@@ -66,7 +66,7 @@ export interface Payout {
   /**
    * The payout updated at
    */
-  updatedAt: unknown;
+  updatedAt: string;
 
   /**
    * Failure details. Only available if the payout failed.
@@ -233,7 +233,7 @@ export interface PayoutRetrieveResponse {
   /**
    * The payout created at
    */
-  createdAt: unknown;
+  createdAt: string;
 
   /**
    * The payout currency
@@ -258,7 +258,7 @@ export interface PayoutRetrieveResponse {
   /**
    * The payout updated at
    */
-  updatedAt: unknown;
+  updatedAt: string;
 
   /**
    * Failure details. Only available if the payout failed.
@@ -436,7 +436,7 @@ export namespace PayoutListResponse {
     /**
      * The payout created at
      */
-    createdAt: unknown;
+    createdAt: string;
 
     /**
      * The payout currency
@@ -461,7 +461,7 @@ export namespace PayoutListResponse {
     /**
      * The payout updated at
      */
-    updatedAt: unknown;
+    updatedAt: string;
 
     /**
      * Failure details. Only available if the payout failed.

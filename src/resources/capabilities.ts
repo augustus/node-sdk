@@ -8,6 +8,13 @@ export class Capabilities extends APIResource {
   /**
    * Retrieve the capabilities of your Ivy account. The capabilities are broken down
    * by market and by product.
+   *
+   * @example
+   * ```ts
+   * const capability = await client.capabilities.retrieve({
+   *   market: 'DE',
+   * });
+   * ```
    */
   retrieve(body: CapabilityRetrieveParams, options?: RequestOptions): APIPromise<CapabilityRetrieveResponse> {
     return this._client.post('/api/service/merchant/capabilities/details', { body, ...options });

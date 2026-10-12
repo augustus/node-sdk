@@ -51,7 +51,7 @@ export interface Counterparty {
   /**
    * When the counterparty was created
    */
-  createdAt: unknown;
+  createdAt: string;
 
   /**
    * The counterparty date of birth as YYYY-MM-DD
@@ -84,7 +84,7 @@ export interface Counterparty {
   name: string | null;
 
   /**
-   * A structured physical postal address.
+   * The counterparty physical address
    */
   physicalAddress: Counterparty.PhysicalAddress | null;
 
@@ -96,7 +96,7 @@ export interface Counterparty {
   /**
    * When the counterparty was last updated
    */
-  updatedAt: unknown;
+  updatedAt: string;
 }
 
 export namespace Counterparty {
@@ -194,7 +194,7 @@ export namespace Counterparty {
   }
 
   /**
-   * A structured physical postal address.
+   * The counterparty physical address
    */
   export interface PhysicalAddress {
     /**
@@ -493,7 +493,7 @@ export interface CounterpartyRetrieveResponse {
   /**
    * When the counterparty was created
    */
-  createdAt: unknown;
+  createdAt: string;
 
   /**
    * The counterparty date of birth as YYYY-MM-DD
@@ -526,7 +526,7 @@ export interface CounterpartyRetrieveResponse {
   name: string | null;
 
   /**
-   * A structured physical postal address.
+   * The counterparty physical address
    */
   physicalAddress: CounterpartyRetrieveResponse.PhysicalAddress | null;
 
@@ -538,7 +538,7 @@ export interface CounterpartyRetrieveResponse {
   /**
    * When the counterparty was last updated
    */
-  updatedAt: unknown;
+  updatedAt: string;
 }
 
 export namespace CounterpartyRetrieveResponse {
@@ -636,7 +636,7 @@ export namespace CounterpartyRetrieveResponse {
   }
 
   /**
-   * A structured physical postal address.
+   * The counterparty physical address
    */
   export interface PhysicalAddress {
     /**
@@ -935,7 +935,7 @@ export interface CounterpartyUpdateResponse {
   /**
    * When the counterparty was created
    */
-  createdAt: unknown;
+  createdAt: string;
 
   /**
    * The counterparty date of birth as YYYY-MM-DD
@@ -968,7 +968,7 @@ export interface CounterpartyUpdateResponse {
   name: string | null;
 
   /**
-   * A structured physical postal address.
+   * The counterparty physical address
    */
   physicalAddress: CounterpartyUpdateResponse.PhysicalAddress | null;
 
@@ -980,7 +980,7 @@ export interface CounterpartyUpdateResponse {
   /**
    * When the counterparty was last updated
    */
-  updatedAt: unknown;
+  updatedAt: string;
 }
 
 export namespace CounterpartyUpdateResponse {
@@ -1078,7 +1078,7 @@ export namespace CounterpartyUpdateResponse {
   }
 
   /**
-   * A structured physical postal address.
+   * The counterparty physical address
    */
   export interface PhysicalAddress {
     /**
@@ -1390,7 +1390,7 @@ export namespace CounterpartyListResponse {
     /**
      * When the counterparty was created
      */
-    createdAt: unknown;
+    createdAt: string;
 
     /**
      * The counterparty date of birth as YYYY-MM-DD
@@ -1423,7 +1423,7 @@ export namespace CounterpartyListResponse {
     name: string | null;
 
     /**
-     * A structured physical postal address.
+     * The counterparty physical address
      */
     physicalAddress: Data.PhysicalAddress | null;
 
@@ -1435,7 +1435,7 @@ export namespace CounterpartyListResponse {
     /**
      * When the counterparty was last updated
      */
-    updatedAt: unknown;
+    updatedAt: string;
   }
 
   export namespace Data {
@@ -1533,7 +1533,7 @@ export namespace CounterpartyListResponse {
     }
 
     /**
-     * A structured physical postal address.
+     * The counterparty physical address
      */
     export interface PhysicalAddress {
       /**
@@ -1866,7 +1866,7 @@ export interface CounterpartyCreateParams {
   name?: string;
 
   /**
-   * A structured physical postal address.
+   * The counterparty physical address
    */
   physicalAddress?: CounterpartyCreateParams.PhysicalAddress;
 }
@@ -1966,7 +1966,7 @@ export namespace CounterpartyCreateParams {
   }
 
   /**
-   * A structured physical postal address.
+   * The counterparty physical address
    */
   export interface PhysicalAddress {
     /**
@@ -2285,14 +2285,14 @@ export interface CounterpartyUpdateParams {
   name?: string | null;
 
   /**
-   * A structured physical postal address.
+   * The counterparty physical address. Pass null to clear.
    */
   physicalAddress?: CounterpartyUpdateParams.PhysicalAddress | null;
 }
 
 export namespace CounterpartyUpdateParams {
   /**
-   * A structured physical postal address.
+   * The counterparty physical address. Pass null to clear.
    */
   export interface PhysicalAddress {
     /**

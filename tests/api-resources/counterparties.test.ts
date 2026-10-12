@@ -28,7 +28,7 @@ describe('resource counterparties', () => {
         aba: {
           accountHolderName: 'x',
           accountNumber: '269125115713',
-          routingNumber: '269125115713',
+          routingNumber: '275273409',
         },
         bankCode: {
           accountHolderName: 'x',
@@ -54,7 +54,7 @@ describe('resource counterparties', () => {
         sortCode: {
           accountHolderName: 'x',
           accountNumber: '095',
-          sortCode: '269125115713',
+          sortCode: '631011',
         },
         wallet: { address: 'address', blockchain: 'BTC' },
       },
@@ -65,7 +65,7 @@ describe('resource counterparties', () => {
       name: 'name',
       physicalAddress: {
         city: 'x',
-        countryCode: 'AF',
+        countryCode: 'DE',
         line1: 'x',
         line2: 'x',
         postalCode: 'x',
@@ -113,7 +113,7 @@ describe('resource counterparties', () => {
       name: 'name',
       physicalAddress: {
         city: 'x',
-        countryCode: 'AF',
+        countryCode: 'DE',
         line1: 'x',
         line2: 'x',
         postalCode: 'x',

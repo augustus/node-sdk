@@ -24,7 +24,7 @@ export class Subaccounts extends APIResource {
 export interface Subaccount {
   id: string;
 
-  createdAt: unknown;
+  createdAt: string;
 
   legalName: string;
 
@@ -34,7 +34,7 @@ export interface Subaccount {
 
   status: 'active' | 'inactive';
 
-  updatedAt: unknown;
+  updatedAt: string;
 
   websiteUrl?: string;
 }
@@ -42,7 +42,7 @@ export interface Subaccount {
 export interface SubaccountCreateResponse {
   id: string;
 
-  createdAt: unknown;
+  createdAt: string;
 
   legalName: string;
 
@@ -52,7 +52,7 @@ export interface SubaccountCreateResponse {
 
   status: 'active' | 'inactive';
 
-  updatedAt: unknown;
+  updatedAt: string;
 
   websiteUrl?: string;
 }

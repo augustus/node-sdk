@@ -9,8 +9,8 @@ const client = new Ivy({
 
 describe('resource refunds', () => {
   // Mock server tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.refunds.create({ amount: 0 });
+  test.skip('create', async () => {
+    const responsePromise = client.refunds.create({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -18,16 +18,6 @@ describe('resource refunds', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.refunds.create({
-      amount: 0,
-      bankStatementReference: 'bankStatementReference',
-      orderId: 'orderId',
-      referenceId: 'referenceId',
-    });
   });
 
   // Mock server tests are disabled

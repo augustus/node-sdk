@@ -11,7 +11,7 @@ describe('resource checkoutsession', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.checkoutsession.create({
-      price: { currency: 'EUR', total: 1.01 },
+      price: { currency: 'EUR', total: 0.01 },
       referenceId: 'referenceId',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -28,7 +28,7 @@ describe('resource checkoutsession', () => {
     const response = await client.checkoutsession.create({
       price: {
         currency: 'EUR',
-        total: 1.01,
+        total: 0.01,
         shipping: 0,
         subTotal: 0,
         totalNet: 0,
@@ -37,7 +37,7 @@ describe('resource checkoutsession', () => {
       referenceId: 'referenceId',
       billingAddress: {
         city: '-,}(N{{-ºN\tN',
-        country: 'AF',
+        country: 'DE',
         line1: '-(№Np){{\rp{:',
         zipCode: '-p-Np{{{\rp{.',
         firstName: 'firstName',
@@ -46,7 +46,7 @@ describe('resource checkoutsession', () => {
         region: '/{',
       },
       completeCallbackUrl: 'completeCallbackUrl',
-      created: 1,
+      created: 0,
       customer: {
         id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         email: 'dev@stainless.com',
@@ -71,7 +71,7 @@ describe('resource checkoutsession', () => {
         },
       ],
       locale: 'de',
-      market: 'AF',
+      market: 'DE',
       metadata: { foo: 'bar' },
       paymentMode: 'direct',
       paymentSchemeSelection: 'instant_preferred',
@@ -81,7 +81,7 @@ describe('resource checkoutsession', () => {
         reference: 'reference',
         bankAddress: {
           city: '-,}(N{{-ºN\tN',
-          country: 'AF',
+          country: 'DE',
           line1: '-(№Np){{\rp{:',
           zipCode: '-p-Np{{{\rp{.',
           line2: 'line2',
@@ -92,7 +92,7 @@ describe('resource checkoutsession', () => {
           aba: {
             accountHolderName: 'x',
             accountNumber: '269125115713',
-            routingNumber: '269125115713',
+            routingNumber: '275273409',
           },
           bankCode: {
             accountHolderName: 'x',
@@ -118,7 +118,7 @@ describe('resource checkoutsession', () => {
           sortCode: {
             accountHolderName: 'x',
             accountNumber: '095',
-            sortCode: '269125115713',
+            sortCode: '631011',
           },
           wallet: { address: 'address', blockchain: 'BTC' },
         },
