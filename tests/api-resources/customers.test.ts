@@ -54,14 +54,14 @@ describe('resource customers', () => {
     const response = await client.customers.update({
       id: 'id',
       address: {
-        country: 'AF',
+        country: 'DE',
         city: 'city',
         line1: 'line1',
         line2: 'line2',
-        region: '02',
+        region: '1',
         zipCode: 'zipCode',
       },
-      dateOfBirth: 'dateOfBirth',
+      dateOfBirth: '2019-12-27',
       email: 'email',
       fullName: 'fullName',
       metadata: { foo: 'bar' },
