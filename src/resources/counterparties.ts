@@ -35,6 +35,18 @@ export class Counterparties extends APIResource {
   list(body: CounterpartyListParams, options?: RequestOptions): APIPromise<CounterpartyListResponse> {
     return this._client.post('/api/service/counterparty/list', { body, ...options });
   }
+
+  /**
+   * Activate a pending counterparty owned by the merchant. A fiat counterparty
+   * becomes active immediately; a crypto counterparty starts verification and stays
+   * pending until it concludes.
+   */
+  activate(
+    body: CounterpartyActivateParams,
+    options?: RequestOptions,
+  ): APIPromise<CounterpartyActivateResponse> {
+    return this._client.post('/api/service/counterparty/activate', { body, ...options });
+  }
 }
 
 export interface Counterparty {
@@ -59,9 +71,10 @@ export interface Counterparty {
   dateOfBirth: string | null;
 
   /**
-   * Whether the counterparty is a business or an individual
+   * Whether the counterparty is an individual, business, sole proprietor or
+   * non-profit
    */
-  entityType: 'business' | 'individual';
+  entityType: 'business' | 'individual' | 'non_profit' | 'sole_proprietor';
 
   /**
    * The counterparty financial address
@@ -501,9 +514,10 @@ export interface CounterpartyRetrieveResponse {
   dateOfBirth: string | null;
 
   /**
-   * Whether the counterparty is a business or an individual
+   * Whether the counterparty is an individual, business, sole proprietor or
+   * non-profit
    */
-  entityType: 'business' | 'individual';
+  entityType: 'business' | 'individual' | 'non_profit' | 'sole_proprietor';
 
   /**
    * The counterparty financial address
@@ -943,9 +957,10 @@ export interface CounterpartyUpdateResponse {
   dateOfBirth: string | null;
 
   /**
-   * Whether the counterparty is a business or an individual
+   * Whether the counterparty is an individual, business, sole proprietor or
+   * non-profit
    */
-  entityType: 'business' | 'individual';
+  entityType: 'business' | 'individual' | 'non_profit' | 'sole_proprietor';
 
   /**
    * The counterparty financial address
@@ -1398,9 +1413,10 @@ export namespace CounterpartyListResponse {
     dateOfBirth: string | null;
 
     /**
-     * Whether the counterparty is a business or an individual
+     * Whether the counterparty is an individual, business, sole proprietor or
+     * non-profit
      */
-    entityType: 'business' | 'individual';
+    entityType: 'business' | 'individual' | 'non_profit' | 'sole_proprietor';
 
     /**
      * The counterparty financial address
@@ -1834,6 +1850,449 @@ export namespace CounterpartyListResponse {
   }
 }
 
+export interface CounterpartyActivateResponse {
+  /**
+   * The counterparty id
+   */
+  id: string;
+
+  /**
+   * Whether payments to and from the counterparty are blocked
+   */
+  blocked: boolean;
+
+  /**
+   * When the counterparty was created
+   */
+  createdAt: string;
+
+  /**
+   * The counterparty date of birth as YYYY-MM-DD
+   */
+  dateOfBirth: string | null;
+
+  /**
+   * Whether the counterparty is an individual, business, sole proprietor or
+   * non-profit
+   */
+  entityType: 'business' | 'individual' | 'non_profit' | 'sole_proprietor';
+
+  /**
+   * The counterparty financial address
+   */
+  financialAddress: CounterpartyActivateResponse.FinancialAddress;
+
+  /**
+   * Whether the counterparty is owned by the merchant
+   */
+  isSelfOwned: boolean;
+
+  /**
+   * The counterparty metadata
+   */
+  metadata: { [key: string]: string };
+
+  /**
+   * The counterparty name
+   */
+  name: string | null;
+
+  /**
+   * The counterparty physical address
+   */
+  physicalAddress: CounterpartyActivateResponse.PhysicalAddress | null;
+
+  /**
+   * The counterparty lifecycle status
+   */
+  status: 'pending' | 'active' | 'rejected';
+
+  /**
+   * When the counterparty was last updated
+   */
+  updatedAt: string;
+}
+
+export namespace CounterpartyActivateResponse {
+  /**
+   * The counterparty financial address
+   */
+  export interface FinancialAddress {
+    type: 'iban' | 'sort_code' | 'bank_code' | 'bban' | 'wallet' | 'aba' | 'bic';
+
+    aba?: FinancialAddress.Aba;
+
+    bankCode?: FinancialAddress.BankCode;
+
+    bban?: FinancialAddress.Bban;
+
+    bic?: FinancialAddress.Bic;
+
+    iban?: FinancialAddress.Iban;
+
+    sortCode?: FinancialAddress.SortCode;
+
+    wallet?: FinancialAddress.Wallet;
+  }
+
+  export namespace FinancialAddress {
+    export interface Aba {
+      accountHolderName: string;
+
+      accountNumber: string;
+
+      routingNumber: string;
+    }
+
+    export interface BankCode {
+      accountHolderName: string;
+
+      accountNumber: string;
+
+      code: string;
+    }
+
+    export interface Bban {
+      accountHolderName: string;
+
+      bban: string;
+
+      bic?: string;
+    }
+
+    export interface Bic {
+      accountHolderName: string;
+
+      accountNumber: string;
+
+      bic: string;
+
+      localBankCode?: string;
+    }
+
+    export interface Iban {
+      accountHolderName: string;
+
+      iban: string;
+
+      bic?: string;
+    }
+
+    export interface SortCode {
+      accountHolderName: string;
+
+      accountNumber: string;
+
+      sortCode: string;
+    }
+
+    export interface Wallet {
+      /**
+       * The blockchain wallet address
+       */
+      address: string;
+
+      /**
+       * The blockchain network
+       */
+      blockchain:
+        | 'BTC'
+        | 'BTC-TESTNET4'
+        | 'ETH'
+        | 'ETH-SEPOLIA'
+        | 'SOL'
+        | 'SOL-DEVNET'
+        | 'MATIC'
+        | 'MATIC-AMOY';
+    }
+  }
+
+  /**
+   * The counterparty physical address
+   */
+  export interface PhysicalAddress {
+    /**
+     * City or locality.
+     */
+    city: string;
+
+    /**
+     * ISO 3166-1 alpha-2 country code.
+     */
+    countryCode:
+      | 'AF'
+      | 'AL'
+      | 'DZ'
+      | 'AS'
+      | 'AD'
+      | 'AO'
+      | 'AI'
+      | 'AQ'
+      | 'AG'
+      | 'AR'
+      | 'AM'
+      | 'AW'
+      | 'AU'
+      | 'AT'
+      | 'AZ'
+      | 'BS'
+      | 'BH'
+      | 'BD'
+      | 'BB'
+      | 'BY'
+      | 'BE'
+      | 'BZ'
+      | 'BJ'
+      | 'BM'
+      | 'BT'
+      | 'BO'
+      | 'BA'
+      | 'BW'
+      | 'BV'
+      | 'BR'
+      | 'IO'
+      | 'BN'
+      | 'BG'
+      | 'BF'
+      | 'BI'
+      | 'KH'
+      | 'CM'
+      | 'CA'
+      | 'CV'
+      | 'KY'
+      | 'CF'
+      | 'TD'
+      | 'CL'
+      | 'CN'
+      | 'CX'
+      | 'CC'
+      | 'CO'
+      | 'KM'
+      | 'CG'
+      | 'CD'
+      | 'CK'
+      | 'CR'
+      | 'CI'
+      | 'HR'
+      | 'CU'
+      | 'CY'
+      | 'CZ'
+      | 'DK'
+      | 'DJ'
+      | 'DM'
+      | 'DO'
+      | 'EC'
+      | 'EG'
+      | 'SV'
+      | 'GQ'
+      | 'ER'
+      | 'EE'
+      | 'ET'
+      | 'FK'
+      | 'FO'
+      | 'FJ'
+      | 'FI'
+      | 'FR'
+      | 'GF'
+      | 'PF'
+      | 'TF'
+      | 'GA'
+      | 'GM'
+      | 'GE'
+      | 'DE'
+      | 'GH'
+      | 'GI'
+      | 'GR'
+      | 'GL'
+      | 'GD'
+      | 'GP'
+      | 'GU'
+      | 'GT'
+      | 'GN'
+      | 'GW'
+      | 'GY'
+      | 'HT'
+      | 'HM'
+      | 'VA'
+      | 'HN'
+      | 'HK'
+      | 'HU'
+      | 'IS'
+      | 'IN'
+      | 'ID'
+      | 'IR'
+      | 'IQ'
+      | 'IE'
+      | 'IL'
+      | 'IT'
+      | 'JM'
+      | 'JP'
+      | 'JO'
+      | 'KZ'
+      | 'KE'
+      | 'KI'
+      | 'KP'
+      | 'KR'
+      | 'KW'
+      | 'KG'
+      | 'LA'
+      | 'LV'
+      | 'LB'
+      | 'LS'
+      | 'LR'
+      | 'LY'
+      | 'LI'
+      | 'LT'
+      | 'LU'
+      | 'MO'
+      | 'MG'
+      | 'MW'
+      | 'MY'
+      | 'MV'
+      | 'ML'
+      | 'MT'
+      | 'MH'
+      | 'MQ'
+      | 'MR'
+      | 'MU'
+      | 'YT'
+      | 'MX'
+      | 'FM'
+      | 'MD'
+      | 'MC'
+      | 'MN'
+      | 'MS'
+      | 'MA'
+      | 'MZ'
+      | 'MM'
+      | 'NA'
+      | 'NR'
+      | 'NP'
+      | 'NL'
+      | 'NC'
+      | 'NZ'
+      | 'NI'
+      | 'NE'
+      | 'NG'
+      | 'NU'
+      | 'NF'
+      | 'MP'
+      | 'MK'
+      | 'NO'
+      | 'OM'
+      | 'PK'
+      | 'PW'
+      | 'PS'
+      | 'PA'
+      | 'PG'
+      | 'PY'
+      | 'PE'
+      | 'PH'
+      | 'PN'
+      | 'PL'
+      | 'PT'
+      | 'PR'
+      | 'QA'
+      | 'RE'
+      | 'RO'
+      | 'RU'
+      | 'RW'
+      | 'SH'
+      | 'KN'
+      | 'LC'
+      | 'PM'
+      | 'VC'
+      | 'WS'
+      | 'SM'
+      | 'ST'
+      | 'SA'
+      | 'SN'
+      | 'SC'
+      | 'SL'
+      | 'SG'
+      | 'SK'
+      | 'SI'
+      | 'SB'
+      | 'SO'
+      | 'ZA'
+      | 'GS'
+      | 'ES'
+      | 'LK'
+      | 'SD'
+      | 'SR'
+      | 'SJ'
+      | 'SZ'
+      | 'SE'
+      | 'CH'
+      | 'SY'
+      | 'TW'
+      | 'TJ'
+      | 'TZ'
+      | 'TH'
+      | 'TL'
+      | 'TG'
+      | 'TK'
+      | 'TO'
+      | 'TT'
+      | 'TN'
+      | 'TR'
+      | 'TM'
+      | 'TC'
+      | 'TV'
+      | 'UG'
+      | 'UA'
+      | 'AE'
+      | 'GB'
+      | 'US'
+      | 'UM'
+      | 'UY'
+      | 'UZ'
+      | 'VU'
+      | 'VE'
+      | 'VN'
+      | 'VG'
+      | 'VI'
+      | 'WF'
+      | 'EH'
+      | 'YE'
+      | 'ZM'
+      | 'ZW'
+      | 'AX'
+      | 'BQ'
+      | 'CW'
+      | 'GG'
+      | 'IM'
+      | 'JE'
+      | 'ME'
+      | 'BL'
+      | 'MF'
+      | 'RS'
+      | 'SX'
+      | 'SS'
+      | 'XK';
+
+    /**
+     * Primary street address line.
+     */
+    line1?: string;
+
+    /**
+     * Secondary street address line.
+     */
+    line2?: string;
+
+    /**
+     * Postal or ZIP code.
+     */
+    postalCode?: string;
+
+    /**
+     * State, province, or region.
+     */
+    state?: string;
+  }
+}
+
 export interface CounterpartyCreateParams {
   /**
    * The counterparty financial address
@@ -1846,9 +2305,10 @@ export interface CounterpartyCreateParams {
   dateOfBirth?: string;
 
   /**
-   * Whether the counterparty is a business or an individual
+   * Whether the counterparty is an individual, business, sole proprietor or
+   * non-profit
    */
-  entityType?: 'business' | 'individual';
+  entityType?: 'business' | 'individual' | 'non_profit' | 'sole_proprietor';
 
   /**
    * Whether the counterparty is owned by the merchant
@@ -2270,9 +2730,10 @@ export interface CounterpartyUpdateParams {
   dateOfBirth?: string | null;
 
   /**
-   * Whether the counterparty is a business or an individual
+   * Whether the counterparty is an individual, business, sole proprietor or
+   * non-profit
    */
-  entityType?: 'business' | 'individual';
+  entityType?: 'business' | 'individual' | 'non_profit' | 'sole_proprietor';
 
   /**
    * Whether the counterparty is owned by the merchant
@@ -2589,15 +3050,24 @@ export interface CounterpartyListParams {
   limit?: number;
 }
 
+export interface CounterpartyActivateParams {
+  /**
+   * The counterparty id
+   */
+  id: string;
+}
+
 export declare namespace Counterparties {
   export {
     type Counterparty as Counterparty,
     type CounterpartyRetrieveResponse as CounterpartyRetrieveResponse,
     type CounterpartyUpdateResponse as CounterpartyUpdateResponse,
     type CounterpartyListResponse as CounterpartyListResponse,
+    type CounterpartyActivateResponse as CounterpartyActivateResponse,
     type CounterpartyCreateParams as CounterpartyCreateParams,
     type CounterpartyRetrieveParams as CounterpartyRetrieveParams,
     type CounterpartyUpdateParams as CounterpartyUpdateParams,
     type CounterpartyListParams as CounterpartyListParams,
+    type CounterpartyActivateParams as CounterpartyActivateParams,
   };
 }

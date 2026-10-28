@@ -131,7 +131,7 @@ describe('resource checkoutsession', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.checkoutsession.retrieve({ id: 'id' });
+    const responsePromise = client.checkoutsession.retrieve({ id: 'E1CB97d8EBbDbaAae6d9B1ca' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -143,12 +143,12 @@ describe('resource checkoutsession', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
-    const response = await client.checkoutsession.retrieve({ id: 'id' });
+    const response = await client.checkoutsession.retrieve({ id: 'E1CB97d8EBbDbaAae6d9B1ca' });
   });
 
   // Mock server tests are disabled
   test.skip('expire: only required params', async () => {
-    const responsePromise = client.checkoutsession.expire({ id: 'id' });
+    const responsePromise = client.checkoutsession.expire({ id: 'E1CB97d8EBbDbaAae6d9B1ca' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -160,6 +160,6 @@ describe('resource checkoutsession', () => {
 
   // Mock server tests are disabled
   test.skip('expire: required and optional params', async () => {
-    const response = await client.checkoutsession.expire({ id: 'id' });
+    const response = await client.checkoutsession.expire({ id: 'E1CB97d8EBbDbaAae6d9B1ca' });
   });
 });

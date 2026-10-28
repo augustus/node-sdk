@@ -156,6 +156,7 @@ Types:
 - <code><a href="./src/resources/counterparties.ts">CounterpartyRetrieveResponse</a></code>
 - <code><a href="./src/resources/counterparties.ts">CounterpartyUpdateResponse</a></code>
 - <code><a href="./src/resources/counterparties.ts">CounterpartyListResponse</a></code>
+- <code><a href="./src/resources/counterparties.ts">CounterpartyActivateResponse</a></code>
 
 Methods:
 
@@ -163,6 +164,7 @@ Methods:
 - <code title="post /api/service/counterparty/retrieve">client.counterparties.<a href="./src/resources/counterparties.ts">retrieve</a>({ ...params }) -> CounterpartyRetrieveResponse</code>
 - <code title="post /api/service/counterparty/update">client.counterparties.<a href="./src/resources/counterparties.ts">update</a>({ ...params }) -> CounterpartyUpdateResponse</code>
 - <code title="post /api/service/counterparty/list">client.counterparties.<a href="./src/resources/counterparties.ts">list</a>({ ...params }) -> CounterpartyListResponse</code>
+- <code title="post /api/service/counterparty/activate">client.counterparties.<a href="./src/resources/counterparties.ts">activate</a>({ ...params }) -> CounterpartyActivateResponse</code>
 
 # Balance
 

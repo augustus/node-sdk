@@ -41,6 +41,8 @@ import {
 import {
   Counterparties,
   Counterparty,
+  CounterpartyActivateParams,
+  CounterpartyActivateResponse,
   CounterpartyCreateParams,
   CounterpartyListParams,
   CounterpartyListResponse,
@@ -995,10 +997,12 @@ export declare namespace Ivy {
     type CounterpartyRetrieveResponse as CounterpartyRetrieveResponse,
     type CounterpartyUpdateResponse as CounterpartyUpdateResponse,
     type CounterpartyListResponse as CounterpartyListResponse,
+    type CounterpartyActivateResponse as CounterpartyActivateResponse,
     type CounterpartyCreateParams as CounterpartyCreateParams,
     type CounterpartyRetrieveParams as CounterpartyRetrieveParams,
     type CounterpartyUpdateParams as CounterpartyUpdateParams,
     type CounterpartyListParams as CounterpartyListParams,
+    type CounterpartyActivateParams as CounterpartyActivateParams,
   };
 
   export {

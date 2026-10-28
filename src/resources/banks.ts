@@ -1310,7 +1310,7 @@ export interface BankListParams {
   /**
    * The internal checkout session id. For internal use only.
    */
-  sessionId?: unknown;
+  sessionId?: string;
 
   /**
    * The number of banks to skip
@@ -1605,7 +1605,7 @@ export interface BankSearchParams {
   /**
    * The internal checkout session id. For internal use only.
    */
-  sessionId?: unknown;
+  sessionId?: string;
 
   /**
    * The number of banks to skip

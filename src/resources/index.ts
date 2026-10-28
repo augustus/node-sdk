@@ -27,10 +27,12 @@ export {
   type CounterpartyRetrieveResponse,
   type CounterpartyUpdateResponse,
   type CounterpartyListResponse,
+  type CounterpartyActivateResponse,
   type CounterpartyCreateParams,
   type CounterpartyRetrieveParams,
   type CounterpartyUpdateParams,
   type CounterpartyListParams,
+  type CounterpartyActivateParams,
 } from './counterparties';
 export {
   Customers,
