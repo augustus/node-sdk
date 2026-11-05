@@ -104,7 +104,9 @@ export class RequestSigner {
     }
 
     const nonce = base64url(crypto.getRandomValues(new Uint8Array(24)));
-    const parameters = `(${components.map((name) => `"${name}"`).join(' ')});created=${Math.floor(Date.now() / 1000)};nonce="${nonce}";keyid="${credentials.keyId}";tag="api-request"`;
+    const parameters = `(${components.map((name) => `"${name}"`).join(' ')});created=${Math.floor(
+      Date.now() / 1000,
+    )};nonce="${nonce}";keyid="${credentials.keyId}";tag="api-request"`;
     const method = (request.method ?? 'GET').toUpperCase();
     const lines = components.map((name) => {
       if (name === '@method') return `"@method": ${method}`;
