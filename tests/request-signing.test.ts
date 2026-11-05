@@ -101,6 +101,24 @@ describe.each(['Ed25519', 'P-256'])('automatic request signing: %s', (algorithm)
     },
   );
 
+  it('replaces pre-existing signature headers with a fresh valid signature', async () => {
+    jest.spyOn(Date, 'now').mockReturnValue(1_800_000_000_000);
+    const pair = keyPair(algorithm);
+    const client = new Client({
+      apiKey,
+      signingPrivateKey: privatePem(pair.privateKey),
+      defaultHeaders: { signature: 'invalid-old-signature', 'signature-input': 'invalid-old-input' },
+      fetch: async (url, init) => {
+        const request = new Request(url, init);
+        expect(await verifyRequest(request, pair.publicKey, algorithm)).toBe(true);
+        expect(request.headers.get('signature')).not.toContain('invalid-old-signature');
+        expect(request.headers.get('signature-input')).not.toContain('invalid-old-input');
+        return Response.json({ ok: true });
+      },
+    });
+    await expect(client.get('/signing-test')).resolves.toEqual({ ok: true });
+  });
+
   it('re-signs retries with unique nonces and preserves the idempotency key', async () => {
     jest.spyOn(Date, 'now').mockReturnValue(1_800_000_000_000);
     const pair = keyPair(algorithm);

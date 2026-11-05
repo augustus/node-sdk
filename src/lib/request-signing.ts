@@ -1,9 +1,10 @@
+import { appendSignature, createSignature, type Signer } from 'http-message-sig';
+
 type SigningKey = Awaited<ReturnType<typeof globalThis.crypto.subtle.importKey>>;
 
 type SigningCredentials = {
-  key: SigningKey;
   keyId: string;
-  algorithm: { name: string; hash?: string };
+  signer: Signer;
 };
 
 function base64(bytes: Uint8Array): string {
@@ -49,10 +50,15 @@ async function signingCredentials(pem: string): Promise<SigningCredentials> {
     isEd25519 ? { crv: jwk.crv, kty: jwk.kty, x: jwk.x } : { crv: jwk.crv, kty: jwk.kty, x: jwk.x, y: jwk.y };
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(JSON.stringify(members)));
 
+  const algorithm = isEd25519 ? { name: 'Ed25519' } : { name: 'ECDSA', hash: 'SHA-256' };
   return {
-    key,
     keyId: base64url(new Uint8Array(digest)),
-    algorithm: isEd25519 ? { name: 'Ed25519' } : { name: 'ECDSA', hash: 'SHA-256' },
+    signer: {
+      algorithm: isEd25519 ? 'ed25519' : 'ecdsa-p256-sha256',
+      async sign(bytes) {
+        return new Uint8Array(await crypto.subtle.sign(algorithm, key, new Uint8Array(bytes)));
+      },
+    },
   };
 }
 
@@ -103,26 +109,29 @@ export class RequestSigner {
       if (headers.has(name)) components.push(name);
     }
 
-    const nonce = base64url(crypto.getRandomValues(new Uint8Array(24)));
-    const parameters = `(${components.map((name) => `"${name}"`).join(' ')});created=${Math.floor(
-      Date.now() / 1000,
-    )};nonce="${nonce}";keyid="${credentials.keyId}";tag="api-request"`;
-    const method = (request.method ?? 'GET').toUpperCase();
-    const lines = components.map((name) => {
-      if (name === '@method') return `"@method": ${method}`;
-      if (name === '@target-uri') return `"@target-uri": ${target.href}`;
-      return `"${name}": ${headers.get(name)}`;
-    });
-    lines.push(`"@signature-params": ${parameters}`);
-    const signature = await crypto.subtle.sign(
-      credentials.algorithm,
-      credentials.key,
-      new TextEncoder().encode(lines.join('\n')),
+    headers.delete('signature');
+    headers.delete('signature-input');
+    const fields = await createSignature(
+      {
+        kind: 'request',
+        method: (request.method ?? 'GET').toUpperCase(),
+        targetUri: target.href,
+        fields: Array.from(headers, ([name, value]) => ({ name, value })),
+      },
+      {
+        label: 'sig1',
+        components,
+        parameters: {
+          created: Math.floor(Date.now() / 1000),
+          nonce: base64url(crypto.getRandomValues(new Uint8Array(24))),
+          keyid: credentials.keyId,
+          tag: 'api-request',
+        },
+        signer: credentials.signer,
+      },
     );
 
-    headers.set('signature-input', `sig1=${parameters}`);
-    headers.set('signature', `sig1=:${base64(new Uint8Array(signature))}:`);
-    request.headers = headers;
+    request.headers = appendSignature(headers, fields);
     request.redirect = 'error';
   }
 }
