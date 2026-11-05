@@ -41,7 +41,9 @@ async function signingCredentials(pem: string): Promise<SigningCredentials> {
     const bytes = Uint8Array.from(atob(encoded.replace(/\s/g, '')), (character) => character.charCodeAt(0));
     key = await importPrivateKey(bytes);
   } catch {
-    throw new Error('Request signing requires a valid Ed25519 or P-256 private key.');
+    throw new Error(
+      'Request signing requires a valid Ed25519 or P-256 private key. Check that this runtime supports the key algorithm in Web Crypto.',
+    );
   }
 
   const jwk = await crypto.subtle.exportKey('jwk', key);

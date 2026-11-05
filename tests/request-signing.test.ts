@@ -1,12 +1,13 @@
+import { verifySignature } from 'http-message-sig';
 import { createHash, generateKeyPairSync, verify, type KeyObject } from 'node:crypto';
 import Client from '../src';
 import { inspect } from 'node:util';
 
 jest.mock('../src/internal/utils/sleep', () => ({ sleep: async () => {} }));
 
-const authorizationHeader: string = 'x-ivy-api-key';
+const authorizationHeader = 'x-ivy-api-key';
 const apiKey = 'synthetic-test-key';
-const authorization = authorizationHeader === 'authorization' ? `Bearer ${apiKey}` : apiKey;
+const authorization = apiKey;
 
 function keyPair(algorithm: string) {
   if (algorithm === 'Ed25519') return generateKeyPairSync('ed25519');
@@ -17,19 +18,11 @@ function privatePem(key: KeyObject): string {
   return key.export({ type: 'pkcs8', format: 'pem' }).toString();
 }
 
-async function verifyRequest(request: Request, publicKey: KeyObject, algorithm: string): Promise<boolean> {
+async function verifyRequest(request: Request, publicKey: KeyObject, algorithm: string): Promise<void> {
   const input = request.headers.get('signature-input');
   const signature = request.headers.get('signature');
   const parameters = input?.slice('sig1='.length);
-  const covered = parameters?.match(/^\(([^)]+)\)/)?.[1]?.match(/"[^"]+"/g);
-  if (!parameters || !covered || !signature) throw new Error('Request signature headers are missing.');
-  const lines = covered.map((component) => {
-    const name = component.slice(1, -1);
-    if (name === '@method') return `${component}: ${request.method}`;
-    if (name === '@target-uri') return `${component}: ${request.url}`;
-    return `${component}: ${request.headers.get(name)}`;
-  });
-  lines.push(`"@signature-params": ${parameters}`);
+  if (!parameters || !signature) throw new Error('Request signature headers are missing.');
   const body = Buffer.from(await request.clone().arrayBuffer());
   expect(request.headers.get('content-digest')).toBe(
     `sha-256=:${createHash('sha256').update(body).digest('base64')}:`,
@@ -45,11 +38,38 @@ async function verifyRequest(request: Request, publicKey: KeyObject, algorithm: 
     : { crv: jwk.crv, kty: jwk.kty, x: jwk.x, y: jwk.y };
   const keyId = createHash('sha256').update(JSON.stringify(members)).digest('base64url');
   expect(parameters).toContain(`;keyid="${keyId}";`);
-  return verify(
-    algorithm === 'Ed25519' ? null : 'sha256',
-    Buffer.from(lines.join('\n')),
-    { key: publicKey, dsaEncoding: 'ieee-p1363' },
-    Buffer.from(signature.slice('sig1=:'.length, -1), 'base64'),
+  const signatureAlgorithm = algorithm === 'Ed25519' ? 'ed25519' : 'ecdsa-p256-sha256';
+  const requiredComponents = ['@method', '@target-uri', authorizationHeader, 'content-digest'];
+  for (const name of ['content-type', 'idempotency-key', 'api-version']) {
+    if (request.headers.has(name)) requiredComponents.push(name);
+  }
+  await verifySignature(
+    {
+      kind: 'request',
+      method: request.method,
+      targetUri: request.url,
+      fields: Array.from(request.headers, ([name, value]) => ({ name, value })),
+    },
+    {
+      label: 'sig1',
+      policy: {
+        algorithms: [signatureAlgorithm],
+        requiredComponents,
+        requiredParameters: ['created', 'nonce', 'keyid', 'tag'],
+        clockSkew: 60,
+        now: Date.now() / 1000,
+      },
+      resolveVerifier: () => ({
+        algorithm: signatureAlgorithm,
+        verify: (bytes, signature) =>
+          verify(
+            algorithm === 'Ed25519' ? null : 'sha256',
+            bytes,
+            { key: publicKey, dsaEncoding: 'ieee-p1363' },
+            signature,
+          ),
+      }),
+    },
   );
 }
 
@@ -87,7 +107,7 @@ describe.each(['Ed25519', 'P-256'])('automatic request signing: %s', (algorithm)
       const request = requests[0];
       if (!request) throw new Error('Request was not sent.');
       expect(request.url).toBe('http://localhost:3333/signing-test?q=%C3%A4&limit=1');
-      expect(await verifyRequest(request, pair.publicKey, algorithm)).toBe(true);
+      await verifyRequest(request, pair.publicKey, algorithm);
       expect(request.headers.get('signature-input')).toContain('"api-version"');
       if (method === 'POST') {
         expect(request.headers.get('idempotency-key')).toBe('synthetic-idempotency-key');
@@ -110,7 +130,7 @@ describe.each(['Ed25519', 'P-256'])('automatic request signing: %s', (algorithm)
       defaultHeaders: { signature: 'invalid-old-signature', 'signature-input': 'invalid-old-input' },
       fetch: async (url, init) => {
         const request = new Request(url, init);
-        expect(await verifyRequest(request, pair.publicKey, algorithm)).toBe(true);
+        await verifyRequest(request, pair.publicKey, algorithm);
         expect(request.headers.get('signature')).not.toContain('invalid-old-signature');
         expect(request.headers.get('signature-input')).not.toContain('invalid-old-input');
         return Response.json({ ok: true });
@@ -138,14 +158,53 @@ describe.each(['Ed25519', 'P-256'])('automatic request signing: %s', (algorithm)
     expect(requests).toHaveLength(2);
     const [first, second] = requests;
     if (!first || !second) throw new Error('Retry was not sent.');
-    expect(await verifyRequest(first, pair.publicKey, algorithm)).toBe(true);
-    expect(await verifyRequest(second, pair.publicKey, algorithm)).toBe(true);
+    await verifyRequest(first, pair.publicKey, algorithm);
+    await verifyRequest(second, pair.publicKey, algorithm);
     expect(second.headers.get('idempotency-key')).toBe(first.headers.get('idempotency-key'));
     expect(second.headers.get('signature-input')).not.toBe(first.headers.get('signature-input'));
   });
 });
 
 describe('request signing configuration', () => {
+  it('loads the signing key from IVY_SIGNING_PRIVATE_KEY and honors explicit overrides', async () => {
+    jest.spyOn(Date, 'now').mockReturnValue(1_800_000_000_000);
+    const environmentPair = keyPair('Ed25519');
+    const explicitPair = keyPair('P-256');
+    jest.replaceProperty(process, 'env', {
+      ...process.env,
+      IVY_SIGNING_PRIVATE_KEY: privatePem(environmentPair.privateKey),
+    });
+    const publicKeys = [environmentPair.publicKey, explicitPair.publicKey];
+    let requests = 0;
+    const fetch = jest.fn(async (url: string | URL | Request, init?: RequestInit) => {
+      const request = new Request(url, init);
+      const publicKey = publicKeys[requests];
+      if (publicKey) {
+        await verifyRequest(request, publicKey, requests === 0 ? 'Ed25519' : 'P-256');
+      }
+      if (!publicKey) expect(request.headers.has('signature')).toBe(false);
+      requests += 1;
+      return Response.json({ ok: true });
+    });
+    await new Client({ apiKey, fetch }).get('/signing-test');
+    await new Client({ apiKey, fetch, signingPrivateKey: privatePem(explicitPair.privateKey) }).get(
+      '/signing-test',
+    );
+    await new Client({ apiKey, fetch, signingPrivateKey: null }).get('/signing-test');
+    expect(fetch).toHaveBeenCalledTimes(3);
+  });
+
+  it('explains missing runtime algorithm support without sending a request', async () => {
+    const pair = keyPair('Ed25519');
+    jest.spyOn(crypto.subtle, 'importKey').mockRejectedValue(new Error('Synthetic unsupported algorithm'));
+    const fetch = jest.fn(async () => Response.json({ ok: true }));
+    const client = new Client({ apiKey, fetch, signingPrivateKey: privatePem(pair.privateKey) });
+    await expect(client.get('/signing-test')).rejects.toThrow(
+      'Check that this runtime supports the key algorithm in Web Crypto.',
+    );
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
   it('preserves signing in withOptions and allows explicitly disabling it', async () => {
     const pair = keyPair('Ed25519');
     const signed: boolean[] = [];
