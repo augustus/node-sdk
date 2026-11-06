@@ -51,6 +51,37 @@ const customer: Ivy.CustomerCreateResponse = await client.customers.create(param
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
 
+## Request signing
+
+If your API key has a signing public key, every request must be signed with the matching private key. Pass the private key as `signingPrivateKey`, or set `IVY_SIGNING_PRIVATE_KEY`, and the client signs each request for you. The private key never leaves your system.
+
+Generate an Ed25519 key pair, then upload the public key when you create the API key in the dashboard:
+
+```sh
+openssl genpkey -algorithm ed25519 -out signing-private-key.pem
+openssl pkey -in signing-private-key.pem -pubout -out signing-public-key.pem
+```
+
+<!-- prettier-ignore -->
+```ts
+import { readFile } from 'node:fs/promises';
+import Ivy from '@getivy/node-sdk';
+
+const client = new Ivy({
+  apiKey: process.env['IVY_API_KEY'],
+  signingPrivateKey: await readFile('signing-private-key.pem', 'utf8'),
+  environment: 'sandbox',
+});
+
+const balance = await client.balance.retrieve({ currency: 'EUR' });
+```
+
+The key must be an unencrypted PKCS#8 PEM for Ed25519 or P-256. Keep its line breaks. A PEM stored on one line with `\n` escapes is rejected.
+
+The client signs each retry again with a new nonce, and it does not follow redirects. To turn signing off on a client created with `withOptions()`, pass `signingPrivateKey: null`.
+
+See [Request signing](https://docs.augustus.com/reference/request-signing) for how signatures are built and verified.
+
 ## Handling errors
 
 When the library is unable to connect to the API,
