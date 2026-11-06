@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.20.1](https://github.com/augustus/node-sdk/compare/v2.20.0...v2.20.1) (2026-11-06)
+
+
+### Documentation
+
+* **jup-2026:** document request signing in the readme ([9dbd0e6](https://github.com/augustus/node-sdk/commit/9dbd0e6a12ecd9bb1c96de85a6a2110afba9ca79))
+* **jup-2026:** document request signing in the readme ([3aa9b4a](https://github.com/augustus/node-sdk/commit/3aa9b4a2a2f870c665e8192b6fb3c0c6fb8827d2))
+
 ## [2.20.0](https://github.com/augustus/node-sdk/compare/v2.19.0...v2.20.0) (2026-11-06)
 
 
