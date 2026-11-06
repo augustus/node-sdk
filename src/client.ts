@@ -13,6 +13,7 @@ import * as Shims from './internal/shims';
 import * as Opts from './internal/request-options';
 import { stringifyQuery } from './internal/utils/query';
 import { VERSION } from './version';
+import { RequestSigner } from './lib/request-signing';
 import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
@@ -128,6 +129,13 @@ type Environment = keyof typeof environments;
 
 export interface ClientOptions {
   /**
+   * Unencrypted PKCS#8 Ed25519 or P-256 private PEM key for automatic request signing.
+   * Defaults to process.env['IVY_SIGNING_PRIVATE_KEY']. Kept client-side.
+   * Pass null to disable signing on a client created with withOptions().
+   */
+  signingPrivateKey?: string | null | undefined;
+
+  /**
    * API key for authentication with Ivy API
    */
   apiKey?: string | undefined;
@@ -227,6 +235,7 @@ export class Ivy {
   #encoder: Opts.RequestEncoder;
   protected idempotencyHeader?: string;
   private _options: ClientOptions;
+  #requestSigner: RequestSigner | undefined;
 
   /**
    * API Client for interfacing with the Ivy API.
@@ -242,6 +251,7 @@ export class Ivy {
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
+    signingPrivateKey = readEnv('IVY_SIGNING_PRIVATE_KEY'),
     baseURL = readEnv('IVY_BASE_URL'),
     apiKey = readEnv('IVY_API_KEY'),
     ...opts
@@ -292,6 +302,7 @@ export class Ivy {
       options.defaultHeaders = { ...parsed, ...options.defaultHeaders };
     }
 
+    this.#requestSigner = signingPrivateKey == null ? undefined : new RequestSigner(signingPrivateKey);
     this._options = options;
     this.idempotencyHeader = 'Idempotency-Key';
 
@@ -315,6 +326,7 @@ export class Ivy {
       apiKey: this.apiKey,
       ...options,
     });
+    if (options.signingPrivateKey === undefined) client.#requestSigner = this.#requestSigner;
     return client;
   }
 
@@ -458,6 +470,7 @@ export class Ivy {
     });
 
     await this.prepareRequest(req, { url, options });
+    await this.#requestSigner?.sign(req, url, 'x-ivy-api-key');
 
     /** Not an API request ID, just for correlating local log entries. */
     const requestLogID = 'log_' + ((Math.random() * (1 << 24)) | 0).toString(16).padStart(6, '0');

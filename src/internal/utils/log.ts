@@ -106,6 +106,9 @@ export const formatRequestDetails = (details: {
         ([name, value]) => [
           name,
           (
+            name.toLowerCase() === 'signature' ||
+            name.toLowerCase() === 'signature-input' ||
+            name.toLowerCase() === 'content-digest' ||
             name.toLowerCase() === 'authorization' ||
             name.toLowerCase() === 'api-key' ||
             name.toLowerCase() === 'x-api-key' ||
