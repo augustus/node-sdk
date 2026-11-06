@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.20.0](https://github.com/augustus/node-sdk/compare/v2.19.0...v2.20.0) (2026-11-06)
+
+
+### Features
+
+* **jup-2014:** sign legacy sdk requests automatically ([6ee22ac](https://github.com/augustus/node-sdk/commit/6ee22ac3e4ad0e0e9a02a5f5a39fddefd97c32ef))
+* **jup-2014:** sign legacy sdk requests automatically ([e02eedc](https://github.com/augustus/node-sdk/commit/e02eedc192e2752edb447af66be119d87acc8d38))
+
+
+### Bug Fixes
+
+* **jup-2014:** build request signatures with http-message-sig ([e64c01e](https://github.com/augustus/node-sdk/commit/e64c01efe518db5191824867708170182986bd24))
+* **jup-2014:** match the pinned sdk formatter ([fdaaddd](https://github.com/augustus/node-sdk/commit/fdaaddd42ee1e7cd3fdf08676f85a94bc411a30c))
+* **jup-2014:** preserve generated client formatting ([9680b67](https://github.com/augustus/node-sdk/commit/9680b674c2d3ff158f17a779311629bd998970c7))
+* **jup-2014:** support signing keys from the environment ([5cd3f33](https://github.com/augustus/node-sdk/commit/5cd3f336f2c957fca1ad0bc10ed67f14d99378e2))
+
 ## [2.19.0](https://github.com/augustus/node-sdk/compare/v2.18.0...v2.19.0) (2026-10-29)
 
 
