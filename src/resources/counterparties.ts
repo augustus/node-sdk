@@ -2305,8 +2305,9 @@ export interface CounterpartyCreateParams {
   dateOfBirth?: string;
 
   /**
-   * Whether the counterparty is an individual, business, sole proprietor or
-   * non-profit
+   * Classification of the counterparty. Defaults to business when omitted. Set
+   * individual for a personal bank account. US ACH payments to individual
+   * counterparties are sent as consumer payments.
    */
   entityType?: 'business' | 'individual' | 'non_profit' | 'sole_proprietor';
 
