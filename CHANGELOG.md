@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.22.0](https://github.com/augustus/node-sdk/compare/v2.21.0...v2.22.0) (2026-11-12)
+
+
+### Features
+
+* **api:** new sdk build due to api update ([de82ce8](https://github.com/augustus/node-sdk/commit/de82ce8f41e32d7e8d7895cc2ea101d73f0f04d0))
+
 ## [2.21.0](https://github.com/augustus/node-sdk/compare/v2.20.1...v2.21.0) (2026-11-10)
 
 
