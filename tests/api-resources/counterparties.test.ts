@@ -58,6 +58,7 @@ describe('resource counterparties', () => {
         },
         wallet: { address: 'address', blockchain: 'BTC' },
       },
+      accountHolderId: 'accountHolderId',
       dateOfBirth: '7321-69-10',
       entityType: 'business',
       isSelfOwned: true,

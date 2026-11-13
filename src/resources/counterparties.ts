@@ -56,6 +56,12 @@ export interface Counterparty {
   id: string;
 
   /**
+   * The id of the account holder the counterparty belongs to, or null for the
+   * merchant's own counterparties
+   */
+  accountHolderId: string | null;
+
+  /**
    * Whether payments to and from the counterparty are blocked
    */
   blocked: boolean;
@@ -499,6 +505,12 @@ export interface CounterpartyRetrieveResponse {
   id: string;
 
   /**
+   * The id of the account holder the counterparty belongs to, or null for the
+   * merchant's own counterparties
+   */
+  accountHolderId: string | null;
+
+  /**
    * Whether payments to and from the counterparty are blocked
    */
   blocked: boolean;
@@ -940,6 +952,12 @@ export interface CounterpartyUpdateResponse {
    * The counterparty id
    */
   id: string;
+
+  /**
+   * The id of the account holder the counterparty belongs to, or null for the
+   * merchant's own counterparties
+   */
+  accountHolderId: string | null;
 
   /**
    * Whether payments to and from the counterparty are blocked
@@ -1396,6 +1414,12 @@ export namespace CounterpartyListResponse {
      * The counterparty id
      */
     id: string;
+
+    /**
+     * The id of the account holder the counterparty belongs to, or null for the
+     * merchant's own counterparties
+     */
+    accountHolderId: string | null;
 
     /**
      * Whether payments to and from the counterparty are blocked
@@ -1857,6 +1881,12 @@ export interface CounterpartyActivateResponse {
   id: string;
 
   /**
+   * The id of the account holder the counterparty belongs to, or null for the
+   * merchant's own counterparties
+   */
+  accountHolderId: string | null;
+
+  /**
    * Whether payments to and from the counterparty are blocked
    */
   blocked: boolean;
@@ -2298,6 +2328,12 @@ export interface CounterpartyCreateParams {
    * The counterparty financial address
    */
   financialAddress: CounterpartyCreateParams.FinancialAddress;
+
+  /**
+   * The id of the account holder whose counterparties to act on. Omit for the
+   * merchant's own counterparties.
+   */
+  accountHolderId?: string | null;
 
   /**
    * The counterparty date of birth as YYYY-MM-DD
@@ -3040,6 +3076,12 @@ export namespace CounterpartyUpdateParams {
 }
 
 export interface CounterpartyListParams {
+  /**
+   * The id of the account holder whose counterparties to act on. Omit for the
+   * merchant's own counterparties.
+   */
+  accountHolderId?: string | null;
+
   /**
    * Cursor for pagination
    */

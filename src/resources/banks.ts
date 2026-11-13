@@ -320,6 +320,7 @@ export interface BankRetrieveResponse {
     | 'FEDWIRE'
     | 'FEDNOW'
     | 'RTP'
+    | 'CHIPS'
   >;
 
   /**
@@ -658,6 +659,7 @@ export namespace BankListResponse {
       | 'FEDWIRE'
       | 'FEDNOW'
       | 'RTP'
+      | 'CHIPS'
     >;
 
     /**
@@ -997,6 +999,7 @@ export namespace BankSearchResponse {
       | 'FEDWIRE'
       | 'FEDNOW'
       | 'RTP'
+      | 'CHIPS'
     >;
 
     /**

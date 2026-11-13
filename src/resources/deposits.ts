@@ -80,6 +80,7 @@ export interface DepositRetrieveResponse {
     | 'fedwire'
     | 'fednow'
     | 'rtp'
+    | 'chips'
     | 'BTC'
     | 'BTC-TESTNET4'
     | 'ETH'

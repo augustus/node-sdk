@@ -659,6 +659,7 @@ export interface PayoutCreateParams {
     | 'FEDWIRE'
     | 'FEDNOW'
     | 'RTP'
+    | 'CHIPS'
     | 'BTC'
     | 'BTC-TESTNET4'
     | 'ETH'
