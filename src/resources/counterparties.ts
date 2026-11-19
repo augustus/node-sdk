@@ -2348,7 +2348,8 @@ export interface CounterpartyCreateParams {
   entityType?: 'business' | 'individual' | 'non_profit' | 'sole_proprietor';
 
   /**
-   * Whether the counterparty is owned by the merchant
+   * Whether the counterparty is owned by the merchant. Must be true for a crypto
+   * wallet.
    */
   isSelfOwned?: boolean;
 
