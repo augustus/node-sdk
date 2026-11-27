@@ -1316,7 +1316,7 @@ export interface BankListParams {
   sessionId?: string;
 
   /**
-   * The number of banks to skip
+   * The number of banks to skip (max 10000)
    */
   skip?: number;
 }
@@ -1611,7 +1611,7 @@ export interface BankSearchParams {
   sessionId?: string;
 
   /**
-   * The number of banks to skip
+   * The number of banks to skip (max 10000)
    */
   skip?: number;
 }

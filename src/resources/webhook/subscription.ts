@@ -376,7 +376,7 @@ export interface SubscriptionListParams {
   limit?: number;
 
   /**
-   * The number of webhook subscriptions to skip
+   * The number of webhook subscriptions to skip (max 10000)
    */
   skip?: number;
 }
